@@ -9,7 +9,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{5896423C-0
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{69AC3819-7829-4540-990A-91850B8D6C85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShop.Library", "src\OnlineShop.Library\OnlineShop.Library.csproj", "{B5CE6C35-4F16-4BA7-8673-6378081B18C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.Library", "src\OnlineShop.Library\OnlineShop.Library.csproj", "{B5CE6C35-4F16-4BA7-8673-6378081B18C9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{8397BDEA-963C-4C08-B8A6-B515D9DBF283}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sql", "sql", "{53CFB415-94A7-435C-AC5F-1DFAB90E15FD}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\sql\is_clean_up.sql = scripts\sql\is_clean_up.sql
+		scripts\sql\roles_claims_constraints_fix.sql = scripts\sql\roles_claims_constraints_fix.sql
+		scripts\sql\users_clean_up.sql = scripts\sql\users_clean_up.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +41,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{868CD5F7-308C-47AE-AB91-282983402BB2} = {69AC3819-7829-4540-990A-91850B8D6C85}
 		{B5CE6C35-4F16-4BA7-8673-6378081B18C9} = {5896423C-0FFC-4A60-9F6A-23C6063A9594}
+		{53CFB415-94A7-435C-AC5F-1DFAB90E15FD} = {8397BDEA-963C-4C08-B8A6-B515D9DBF283}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D0AE5EBA-8C07-4DBB-A3E2-7D6420A28001}
