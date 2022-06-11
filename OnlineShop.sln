@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31402.337
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.IdentityServer", "scr\OnlineShop.IdentityServer\OnlineShop.IdentityServer.csproj", "{868CD5F7-308C-47AE-AB91-282983402BB2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.IdentityServer", "src\OnlineShop.IdentityServer\OnlineShop.IdentityServer.csproj", "{868CD5F7-308C-47AE-AB91-282983402BB2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{5896423C-0FFC-4A60-9F6A-23C6063A9594}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{69AC3819-7829-4540-990A-91850B8D6C85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShop.Library", "scr\OnlineShop.Library\OnlineShop.Library.csproj", "{B5CE6C35-4F16-4BA7-8673-6378081B18C9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShop.Library", "src\OnlineShop.Library\OnlineShop.Library.csproj", "{B5CE6C35-4F16-4BA7-8673-6378081B18C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
