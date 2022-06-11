@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{5896423C-0
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{69AC3819-7829-4540-990A-91850B8D6C85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShop.Library", "OnlineShop.Library\OnlineShop.Library.csproj", "{B5CE6C35-4F16-4BA7-8673-6378081B18C9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShop.Library", "scr\OnlineShop.Library\OnlineShop.Library.csproj", "{B5CE6C35-4F16-4BA7-8673-6378081B18C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
