@@ -7,11 +7,12 @@ using System.Linq;
 using System.Security.Claims;
 using IdentityModel;
 using OnlineShop.IdentityServer.Data;
-using OnlineShop.IdentityServer.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
+using OnlineShop.Library.Authentification.Models;
+using OnlineShop.Library.Common.Models;
 
 namespace OnlineShop.IdentityServer
 {
@@ -36,22 +37,37 @@ namespace OnlineShop.IdentityServer
                     context.Database.Migrate();
 
                     var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-                    var alice = userMgr.FindByNameAsync("andrey").Result;
-                    if (alice == null)
+                    var andrey = userMgr.FindByNameAsync("andrey").Result;
+                    if (andrey == null)
                     {
-                        alice = new ApplicationUser
+                        andrey = new ApplicationUser
                         {
                             UserName = "andrey",
                             Email = "andrey@email.com",
                             EmailConfirmed = true,
+                            DefaultAddress =  new Address()
+                            {
+                                City = "Warsaw",
+                                Country = "Poland",
+                                PostalCode = "00-001",
+                                AddressLine1 = "Jasna 21",
+                                AddressLine2 = "34"
+                            },
+                            DeliveryAddress = new Address()
+                            {
+                                City = "Kraków",
+                                Country = "Poland",
+                                PostalCode = "30-001",
+                                AddressLine1 = "Wspólna 45"
+                            },
                         };
-                        var result = userMgr.CreateAsync(alice, "Pass_123").Result;
+                        var result = userMgr.CreateAsync(andrey, "Pass_123").Result;
                         if (!result.Succeeded)
                         {
                             throw new Exception(result.Errors.First().Description);
                         }
 
-                        result = userMgr.AddClaimsAsync(alice, new Claim[]{
+                        result = userMgr.AddClaimsAsync(andrey, new Claim[]{
                             new Claim(JwtClaimTypes.Name, "Andrey Shyrokoryadov"),
                             new Claim(JwtClaimTypes.GivenName, "Andrey"),
                             new Claim(JwtClaimTypes.FamilyName, "Shyrokoryadov"),
@@ -66,6 +82,36 @@ namespace OnlineShop.IdentityServer
                     else
                     {
                         Log.Debug("Andrey already exists");
+
+                        if(andrey.DefaultAddress == null)
+                        {
+                            andrey.DefaultAddress = new Address()
+                            {
+                                City = "Warsaw",
+                                Country = "Poland",
+                                PostalCode = "00-001",
+                                AddressLine1 = "Jasna 21",
+                                AddressLine2 = "34"
+                            };
+                        }
+
+                        if (andrey.DeliveryAddress == null)
+                        {
+                            andrey.DeliveryAddress = new Address()
+                            {
+                                City = "Kraków",
+                                Country = "Poland",
+                                PostalCode = "30-001",
+                                AddressLine1 = "Wspólna 45"
+                            };
+                        }
+
+                        var result = userMgr.UpdateAsync(andrey).Result;
+                        if (!result.Succeeded)
+                        {
+                            throw new Exception(result.Errors.First().Description);
+                        }
+                        Log.Debug("Andrey has been updated");
                     }
                 }
             }

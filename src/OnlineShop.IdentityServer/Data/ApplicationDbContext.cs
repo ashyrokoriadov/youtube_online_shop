@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using OnlineShop.IdentityServer.Models;
+using OnlineShop.Library.Authentification.Models;
 
 namespace OnlineShop.IdentityServer.Data
 {
