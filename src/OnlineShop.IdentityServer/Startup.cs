@@ -12,6 +12,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Reflection;
+using OnlineShop.Library.Constants;
+using IdentityServer4.EntityFramework.DbContexts;
+using IdentityServer4.EntityFramework.Mappers;
+using System.Linq;
 
 namespace OnlineShop.IdentityServer
 {
@@ -30,8 +35,10 @@ namespace OnlineShop.IdentityServer
         {
             services.AddControllersWithViews();
 
+            var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
+
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("UsersConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString(ConnectionNames.UsersConnection)));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -47,9 +54,18 @@ namespace OnlineShop.IdentityServer
                 // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
                 options.EmitStaticAudienceClaim = true;
             })
-                .AddInMemoryIdentityResources(Config.IdentityResources)
-                .AddInMemoryApiScopes(Config.ApiScopes)
-                .AddInMemoryClients(Config.Clients)
+                .AddConfigurationStore(options =>
+                {
+                    options.ConfigureDbContext = b => b.UseSqlServer(
+                        Configuration.GetConnectionString(ConnectionNames.IdentityServerConnection),
+                        sql => sql.MigrationsAssembly(migrationsAssembly));
+                })
+                .AddOperationalStore(options =>
+                {
+                    options.ConfigureDbContext = b => b.UseSqlServer(
+                        Configuration.GetConnectionString(ConnectionNames.IdentityServerConnection),
+                        sql => sql.MigrationsAssembly(migrationsAssembly));
+                })
                 .AddAspNetIdentity<ApplicationUser>();
 
             // not recommended for production - you need to store your key material somewhere secure
@@ -60,6 +76,8 @@ namespace OnlineShop.IdentityServer
 
         public void Configure(IApplicationBuilder app)
         {
+            InitializeDatabase(app);
+
             if (Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -74,6 +92,43 @@ namespace OnlineShop.IdentityServer
             {
                 endpoints.MapDefaultControllerRoute();
             });
+        }
+
+        private void InitializeDatabase(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                serviceScope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>().Database.Migrate();
+
+                var context = serviceScope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
+                context.Database.Migrate();
+                if (!context.Clients.Any())
+                {
+                    foreach (var client in Config.Clients)
+                    {
+                        context.Clients.Add(client.ToEntity());
+                    }
+                    context.SaveChanges();
+                }
+
+                if (!context.IdentityResources.Any())
+                {
+                    foreach (var resource in Config.IdentityResources)
+                    {
+                        context.IdentityResources.Add(resource.ToEntity());
+                    }
+                    context.SaveChanges();
+                }
+
+                if (!context.ApiScopes.Any())
+                {
+                    foreach (var resource in Config.ApiScopes)
+                    {
+                        context.ApiScopes.Add(resource.ToEntity());
+                    }
+                    context.SaveChanges();
+                }
+            }
         }
     }
 }
