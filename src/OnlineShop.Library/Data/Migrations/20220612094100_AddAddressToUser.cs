@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace OnlineShop.IdentityServer.Data.Migrations
+namespace OnlineShop.Library.Data.Migrations
 {
     public partial class AddAddressToUser : Migration
     {

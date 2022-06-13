@@ -3,15 +3,16 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using OnlineShop.IdentityServer.Data;
+using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace OnlineShop.IdentityServer.Data.Migrations
+
+namespace OnlineShop.Library.Data.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(UsersDbContext))]
+    [Migration("20220612094100_AddAddressToUser")]
+    partial class AddAddressToUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -17,6 +17,7 @@ using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
 using System.Linq;
 using OnlineShop.Library.Authentification.Models;
+using OnlineShop.Library.Data;
 
 namespace OnlineShop.IdentityServer
 {
@@ -37,11 +38,11 @@ namespace OnlineShop.IdentityServer
 
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
 
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<UsersDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString(ConnectionNames.UsersConnection)));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddEntityFrameworkStores<UsersDbContext>()
                 .AddDefaultTokenProviders();
 
             var builder = services.AddIdentityServer(options =>

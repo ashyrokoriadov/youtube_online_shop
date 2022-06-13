@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using OnlineShop.Library.Authentification.Models;
 using OnlineShop.Library.Common.Models;
+using OnlineShop.Library.Data;
 
 namespace OnlineShop.IdentityServer
 {
@@ -22,18 +23,18 @@ namespace OnlineShop.IdentityServer
         {
             var services = new ServiceCollection();
             services.AddLogging();
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<UsersDbContext>(options =>
                options.UseSqlServer(connectionString));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddEntityFrameworkStores<UsersDbContext>()
                 .AddDefaultTokenProviders();
 
             using (var serviceProvider = services.BuildServiceProvider())
             {
                 using (var scope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
                 {
-                    var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+                    var context = scope.ServiceProvider.GetService<UsersDbContext>();
                     context.Database.Migrate();
 
                     var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
