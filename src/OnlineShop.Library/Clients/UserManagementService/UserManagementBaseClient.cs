@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using OnlineShop.Library.Authentification.Responses;
 using OnlineShop.Library.Options;
+using OnlineShop.Library.UserManagementService.Responses;
 using System;
 using System.Net.Http;
 using System.Text;

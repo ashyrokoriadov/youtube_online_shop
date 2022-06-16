@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using OnlineShop.Library.Authentification.Models;
+using OnlineShop.Library.UserManagementService.Models;
 
 namespace OnlineShop.Library.Data
 {

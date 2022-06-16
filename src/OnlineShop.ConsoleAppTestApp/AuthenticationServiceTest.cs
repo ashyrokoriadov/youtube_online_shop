@@ -1,7 +1,5 @@
 ﻿using IdentityModel.Client;
 using Microsoft.Extensions.Options;
-using OnlineShop.Library.Authentification.Models;
-using OnlineShop.Library.Authentification.Requests;
 using OnlineShop.Library.Clients.UserManagementService;
 using OnlineShop.Library.Clients.IdentityServer;
 using OnlineShop.Library.Common.Models;
@@ -10,6 +8,8 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using OnlineShop.Library.UserManagementService.Requests;
+using OnlineShop.Library.UserManagementService.Models;
 
 namespace OnlineShop.ConsoleAppTestApp
 {

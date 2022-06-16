@@ -16,8 +16,8 @@ using OnlineShop.Library.Constants;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
 using System.Linq;
-using OnlineShop.Library.Authentification.Models;
 using OnlineShop.Library.Data;
+using OnlineShop.Library.UserManagementService.Models;
 
 namespace OnlineShop.IdentityServer
 {

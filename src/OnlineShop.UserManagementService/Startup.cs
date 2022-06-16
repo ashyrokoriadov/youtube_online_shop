@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using OnlineShop.Library.Authentification.Models;
 using OnlineShop.Library.Constants;
 using OnlineShop.Library.Data;
+using OnlineShop.Library.UserManagementService.Models;
 
 namespace OnlineShop.UserManagementService
 {

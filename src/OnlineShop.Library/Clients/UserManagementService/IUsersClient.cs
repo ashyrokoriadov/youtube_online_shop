@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using OnlineShop.Library.Authentification.Models;
-using OnlineShop.Library.Authentification.Requests;
-using OnlineShop.Library.Authentification.Responses;
+using OnlineShop.Library.UserManagementService.Models;
+using OnlineShop.Library.UserManagementService.Requests;
+using OnlineShop.Library.UserManagementService.Responses;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

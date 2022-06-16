@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using OnlineShop.Library.Authentification.Models;
+using OnlineShop.Library.UserManagementService.Models;
 
 namespace IdentityServerHost.Quickstart.UI
 {
