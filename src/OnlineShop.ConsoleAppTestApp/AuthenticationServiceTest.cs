@@ -9,6 +9,7 @@ using OnlineShop.Library.Options;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace OnlineShop.ConsoleAppTestApp
 {
@@ -16,19 +17,22 @@ namespace OnlineShop.ConsoleAppTestApp
     {
         private readonly IdentityServerClient _identityServerClient;
         private readonly UsersClient _usersClient;
+        private readonly RolesClient _rolesClient;
         private readonly IdentityServerApiOptions _identityServerOptions;
 
         public AuthenticationServiceTest(
             IdentityServerClient identityServerClient,
             UsersClient usersClient,
+            RolesClient rolesClient,
             IOptions<IdentityServerApiOptions> options)
         {
             _identityServerClient = identityServerClient;
             _usersClient = usersClient;
+            _rolesClient = rolesClient;
             _identityServerOptions = options.Value;
         }
 
-        public async Task<string> Run(string[] args)
+        public async Task<string> RunUsersClientTests(string[] args)
         {
             var token = await _identityServerClient.GetApiToken(_identityServerOptions);          
             _usersClient.HttpClient.SetBearerToken(token.AccessToken);
@@ -75,6 +79,47 @@ namespace OnlineShop.ConsoleAppTestApp
             Thread.Sleep(100);
 
             var getAllRequest = await _usersClient.GetAll();
+            Console.WriteLine($"GET ALL: {getOneRequest.Code}");
+
+            Thread.Sleep(100);
+
+            return "OK";
+        }
+
+        public async Task<string> RunRolesClientTests(string[] args)
+        {
+            var token = await _identityServerClient.GetApiToken(_identityServerOptions);
+            _rolesClient.HttpClient.SetBearerToken(token.AccessToken);
+
+            var roleName = "xyz7";
+
+            var addResult = await _rolesClient.Add(new IdentityRole(roleName));
+            Console.WriteLine($"ADD: {addResult.Succeeded}");
+
+            Thread.Sleep(100);
+
+            var getOneRequest = await _rolesClient.Get(roleName);
+            Console.WriteLine($"GET ONE: {getOneRequest.Code}");
+
+            Thread.Sleep(100);
+
+            var userToUpdate = getOneRequest.Payload;
+            var updateResult = await _rolesClient.Update(userToUpdate);
+            Console.WriteLine($"UPDATE: {updateResult.Succeeded}");
+
+            Thread.Sleep(100);
+
+            getOneRequest = await _rolesClient.Get(roleName);
+            Console.WriteLine($"GET ONE: {getOneRequest.Code}");
+
+            Thread.Sleep(100);
+
+            var deleteResult = await _rolesClient.Remove(getOneRequest.Payload);
+            Console.WriteLine($"DELETE: {deleteResult.Succeeded}");
+
+            Thread.Sleep(100);
+
+            var getAllRequest = await _rolesClient.GetAll();
             Console.WriteLine($"GET ALL: {getOneRequest.Code}");
 
             Thread.Sleep(100);

@@ -20,6 +20,7 @@ namespace OnlineShop.ConsoleAppTestApp
                 {
                     services.AddHttpClient<IdentityServerClient>();
                     services.AddHttpClient<UsersClient>();
+                    services.AddHttpClient<RolesClient>();
 
                     services.AddTransient<AuthenticationServiceTest>();
 
@@ -48,7 +49,8 @@ namespace OnlineShop.ConsoleAppTestApp
                 try
                 {
                     var service = services.GetRequiredService<AuthenticationServiceTest>();
-                    var result = await service.Run(args);
+                    var result = await service.RunUsersClientTests(args);
+                    //var result = await service.RunRolesClientTests(args);
 
                     Console.WriteLine(result);
                 }

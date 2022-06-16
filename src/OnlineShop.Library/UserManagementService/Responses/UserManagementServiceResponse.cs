@@ -1,6 +1,6 @@
 ﻿namespace OnlineShop.Library.Authentification.Responses
 {
-    public class AuthenticationServiceResponse<T>
+    public class UserManagementServiceResponse<T>
     {
         public T Payload { get; set; }
 

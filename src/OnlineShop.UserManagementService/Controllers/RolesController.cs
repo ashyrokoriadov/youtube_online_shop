@@ -10,7 +10,7 @@ namespace OnlineShop.UserManagementService.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class RolesController : ControllerBase
     {
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -27,9 +27,15 @@ namespace OnlineShop.UserManagementService.Controllers
         }
 
         [HttpPost(RepoActions.Update)]
-        public Task<IdentityResult> Update(IdentityRole role)
+        public async Task<IdentityResult> Update(IdentityRole role)
         {
-            var result = _roleManager.UpdateAsync(role);
+            var roleToBeUpdated = await _roleManager.FindByNameAsync(role.Name);
+            if (roleToBeUpdated == null)
+                return IdentityResult.Failed(new IdentityError() { Description = $"Role {role.Name} was not found." });
+
+            roleToBeUpdated.Name = role.Name;
+
+            var result = await _roleManager.UpdateAsync(roleToBeUpdated);
             return result;
         }
 

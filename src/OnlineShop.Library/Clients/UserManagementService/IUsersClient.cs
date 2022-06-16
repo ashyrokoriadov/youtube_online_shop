@@ -15,9 +15,9 @@ namespace OnlineShop.Library.Clients.UserManagementService
 
         Task<IdentityResult> Remove(ApplicationUser user);
 
-        Task<AuthenticationServiceResponse<ApplicationUser>> Get(string name);
+        Task<UserManagementServiceResponse<ApplicationUser>> Get(string name);
 
-        Task<AuthenticationServiceResponse<IEnumerable<ApplicationUser>>> GetAll();
+        Task<UserManagementServiceResponse<IEnumerable<ApplicationUser>>> GetAll();
 
         Task<IdentityResult> ChangePassword(UserPasswordChangeRequest request);
     }
