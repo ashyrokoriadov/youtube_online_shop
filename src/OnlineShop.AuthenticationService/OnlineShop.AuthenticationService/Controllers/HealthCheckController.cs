@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace OnlineShop.AuthenticationService.Controllers
+namespace OnlineShop.UserManagementService.Controllers
 {
     [ApiController]
     [Route("[controller]")]

@@ -5,7 +5,7 @@ using System;
 using System.Threading.Tasks;
 using OnlineShop.Library.Clients.IdentityServer;
 using Microsoft.Extensions.Logging;
-using OnlineShop.Library.Clients.AuthenticationService;
+using OnlineShop.Library.Clients.UserManagementService;
 using OnlineShop.Library.Options;
 using System.IO;
 

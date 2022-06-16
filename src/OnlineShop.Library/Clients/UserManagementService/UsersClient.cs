@@ -11,7 +11,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineShop.Library.Clients.AuthenticationService
+namespace OnlineShop.Library.Clients.UserManagementService
 {
     public class UsersClient : IUsersClient, IDisposable
     {       

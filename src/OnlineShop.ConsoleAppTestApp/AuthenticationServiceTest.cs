@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Options;
 using OnlineShop.Library.Authentification.Models;
 using OnlineShop.Library.Authentification.Requests;
-using OnlineShop.Library.Clients.AuthenticationService;
+using OnlineShop.Library.Clients.UserManagementService;
 using OnlineShop.Library.Clients.IdentityServer;
 using OnlineShop.Library.Common.Models;
 using OnlineShop.Library.Options;

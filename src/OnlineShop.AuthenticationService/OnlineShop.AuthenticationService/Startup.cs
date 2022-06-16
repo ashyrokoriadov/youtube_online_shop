@@ -10,7 +10,7 @@ using OnlineShop.Library.Authentification.Models;
 using OnlineShop.Library.Constants;
 using OnlineShop.Library.Data;
 
-namespace OnlineShop.AuthenticationService
+namespace OnlineShop.UserManagementService
 {
     public class Startup
     {

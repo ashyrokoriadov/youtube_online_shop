@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <UserSecretsId>aspnet-OnlineShop.AuthenticationService-73076687-2CE9-4127-9B6E-D9E388AE6871</UserSecretsId>
+    <UserSecretsId>aspnet-OnlineShop.UserManagementService-73076687-2CE9-4127-9B6E-D9E388AE6871</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

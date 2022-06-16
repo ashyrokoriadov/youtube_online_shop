@@ -1,4 +1,4 @@
-﻿namespace OnlineShop.Library.Clients.AuthenticationService
+﻿namespace OnlineShop.Library.Clients.UserManagementService
 {
     public interface IAuthenticationServiceClient : IUsersClient
     {  }

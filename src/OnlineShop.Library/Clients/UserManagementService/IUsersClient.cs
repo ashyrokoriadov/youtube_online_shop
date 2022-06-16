@@ -5,7 +5,7 @@ using OnlineShop.Library.Authentification.Responses;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace OnlineShop.Library.Clients.AuthenticationService
+namespace OnlineShop.Library.Clients.UserManagementService
 {
     public interface IUsersClient
     {
