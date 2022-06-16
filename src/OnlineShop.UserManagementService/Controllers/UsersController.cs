@@ -79,28 +79,44 @@ namespace OnlineShop.UserManagementService.Controllers
         [HttpPost(UserControllerRoutes.AddToRole)]
         public async Task<IdentityResult> AddToRole(AddRemoveRoleRequest request)
         {
-            var result = await _userManager.AddToRoleAsync(request.User, request.RoleName);
+            var user = await _userManager.FindByNameAsync(request.UserName);
+            if (user == null)
+                return IdentityResult.Failed(new IdentityError() { Description = $"User {request.UserName} was not found." });
+
+            var result = await _userManager.AddToRoleAsync(user, request.RoleName);
             return result;
         }
 
         [HttpPost(UserControllerRoutes.AddToRoles)]
         public async Task<IdentityResult> AddToRoles(AddRemoveRolesRequest request)
         {
-            var result = await _userManager.AddToRolesAsync(request.User, request.RoleNames);
+            var user = await _userManager.FindByNameAsync(request.UserName);
+            if (user == null)
+                return IdentityResult.Failed(new IdentityError() { Description = $"User {request.UserName} was not found." });
+
+            var result = await _userManager.AddToRolesAsync(user, request.RoleNames);
             return result;
         }
 
         [HttpPost(UserControllerRoutes.RemoveFromRole)]
         public async Task<IdentityResult> RemoveFromRole(AddRemoveRoleRequest request)
         {
-            var result = await _userManager.RemoveFromRoleAsync(request.User, request.RoleName);
+            var user = await _userManager.FindByNameAsync(request.UserName);
+            if (user == null)
+                return IdentityResult.Failed(new IdentityError() { Description = $"User {request.UserName} was not found." });
+
+            var result = await _userManager.RemoveFromRoleAsync(user, request.RoleName);
             return result;
         }
 
         [HttpPost(UserControllerRoutes.RemoveFromRoles)]
         public async Task<IdentityResult> RemoveFromRoles(AddRemoveRolesRequest request)
         {
-            var result = await _userManager.RemoveFromRolesAsync(request.User, request.RoleNames);
+            var user = await _userManager.FindByNameAsync(request.UserName);
+            if (user == null)
+                return IdentityResult.Failed(new IdentityError() { Description = $"User {request.UserName} was not found." });
+
+            var result = await _userManager.RemoveFromRolesAsync(user, request.RoleNames);
             return result;
         }
     }

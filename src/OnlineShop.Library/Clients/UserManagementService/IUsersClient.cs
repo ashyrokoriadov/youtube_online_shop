@@ -20,5 +20,13 @@ namespace OnlineShop.Library.Clients.UserManagementService
         Task<UserManagementServiceResponse<IEnumerable<ApplicationUser>>> GetAll();
 
         Task<IdentityResult> ChangePassword(UserPasswordChangeRequest request);
+
+        Task<IdentityResult> AddToRole(AddRemoveRoleRequest request);
+
+        Task<IdentityResult> AddToRoles(AddRemoveRolesRequest request);
+
+        Task<IdentityResult> RemoveFromRole(AddRemoveRoleRequest request);
+
+        Task<IdentityResult> RemoveFromRoles(AddRemoveRolesRequest request);
     }
 }

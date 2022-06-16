@@ -38,6 +38,8 @@ namespace OnlineShop.ConsoleAppTestApp
             _usersClient.HttpClient.SetBearerToken(token.AccessToken);
 
             var userName = "xyz7";
+            var roleName = "ShopClient";
+            var roleNames = new[] { "ShopClient", "ShopClient3" };
 
             var addResult = await _usersClient.Add(new CreateUserRequest() { User = new ApplicationUser() { UserName = userName }, Password = "Password_1" });
             Console.WriteLine($"ADD: {addResult.Succeeded}");
@@ -67,6 +69,24 @@ namespace OnlineShop.ConsoleAppTestApp
             Console.WriteLine($"UPDATE: {updateResult.Succeeded}");
 
             Thread.Sleep(100);
+
+            var addToRoleRequest  = await _usersClient.AddToRole(new AddRemoveRoleRequest() { UserName = userName, RoleName = roleName });
+            Console.WriteLine($"ADD TO ROLE: {addToRoleRequest.Succeeded}");
+
+            Thread.Sleep(100);
+
+            var removeFromRoleRequest = await _usersClient.RemoveFromRole(new AddRemoveRoleRequest() { UserName = userName, RoleName = roleName });
+            Console.WriteLine($"REMOVE FROM ROLE: {removeFromRoleRequest.Succeeded}");
+
+            Thread.Sleep(100);
+
+            var addToRolesRequest = await _usersClient.AddToRoles(new AddRemoveRolesRequest() { UserName = userName, RoleNames = roleNames });
+            Console.WriteLine($"ADD TO MANY ROLES: {addToRolesRequest.Succeeded}");
+
+            Thread.Sleep(100);
+
+            var removeFromRolesRequest = await _usersClient.RemoveFromRoles(new AddRemoveRolesRequest() { UserName = userName, RoleNames = roleNames });
+            Console.WriteLine($"REMOVE FROM MANY ROLES: {removeFromRolesRequest.Succeeded}");
 
             getOneRequest = await _usersClient.Get(userName);
             Console.WriteLine($"GET ONE: {getOneRequest.Code}");
