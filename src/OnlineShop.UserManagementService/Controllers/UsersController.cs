@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using OnlineShop.Library.Authentification.Models;
-using OnlineShop.Library.Authentification.Requests;
 using OnlineShop.Library.Constants;
+using OnlineShop.Library.UserManagementService.Models;
+using OnlineShop.Library.UserManagementService.Requests;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -65,7 +65,7 @@ namespace OnlineShop.UserManagementService.Controllers
             return result;
         }
 
-        [HttpPost("changepassword")]
+        [HttpPost(UserControllerRoutes.ChangePassword)]
         public async Task<IdentityResult> ChangePassword(UserPasswordChangeRequest request)
         {
             var user = await _userManager.FindByNameAsync(request.UserName);
@@ -73,6 +73,34 @@ namespace OnlineShop.UserManagementService.Controllers
                 return IdentityResult.Failed(new IdentityError() { Description = $"User {request.UserName} was not found."});
 
             var result = await _userManager.ChangePasswordAsync(user, request.CurrentPassword, request.NewPassword);
+            return result;
+        }
+
+        [HttpPost(UserControllerRoutes.AddToRole)]
+        public async Task<IdentityResult> AddToRole(AddRemoveRoleRequest request)
+        {
+            var result = await _userManager.AddToRoleAsync(request.User, request.RoleName);
+            return result;
+        }
+
+        [HttpPost(UserControllerRoutes.AddToRoles)]
+        public async Task<IdentityResult> AddToRoles(AddRemoveRolesRequest request)
+        {
+            var result = await _userManager.AddToRolesAsync(request.User, request.RoleNames);
+            return result;
+        }
+
+        [HttpPost(UserControllerRoutes.RemoveFromRole)]
+        public async Task<IdentityResult> RemoveFromRole(AddRemoveRoleRequest request)
+        {
+            var result = await _userManager.RemoveFromRoleAsync(request.User, request.RoleName);
+            return result;
+        }
+
+        [HttpPost(UserControllerRoutes.RemoveFromRoles)]
+        public async Task<IdentityResult> RemoveFromRoles(AddRemoveRolesRequest request)
+        {
+            var result = await _userManager.RemoveFromRolesAsync(request.User, request.RoleNames);
             return result;
         }
     }

@@ -1,4 +1,4 @@
-﻿namespace OnlineShop.Library.Authentification.Requests
+﻿namespace OnlineShop.Library.UserManagementService.Requests
 {
     public class UserPasswordChangeRequest
     {

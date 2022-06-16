@@ -1,4 +1,4 @@
-﻿namespace OnlineShop.Library.Authentification.Responses
+﻿namespace OnlineShop.Library.UserManagementService.Responses
 {
     public class UserManagementServiceResponse<T>
     {

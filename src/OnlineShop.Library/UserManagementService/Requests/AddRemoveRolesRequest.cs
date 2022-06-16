@@ -2,10 +2,10 @@
 
 namespace OnlineShop.Library.UserManagementService.Requests
 {
-    public class CreateUserRequest
+    public class AddRemoveRolesRequest
     {
         public ApplicationUser User { get; set; }
 
-        public string Password { get; set; }
+        public string[] RoleNames { get; set; }
     }
 }
