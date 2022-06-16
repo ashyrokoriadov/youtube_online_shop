@@ -22,7 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sql", "sql", "{53CFB415-94A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "services", "services", "{605AA981-BB79-4F02-9AAC-27472468F0FD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.UserManagementService", "src\OnlineShop.AuthenticationService\OnlineShop.AuthenticationService\OnlineShop.UserManagementService.csproj", "{36D3B845-8DB7-47CA-867A-DF01F33CA9F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.UserManagementService", "src\OnlineShop.UserManagementService\OnlineShop.UserManagementService.csproj", "{36D3B845-8DB7-47CA-867A-DF01F33CA9F6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.ConsoleAppTestApp", "src\OnlineShop.ConsoleAppTestApp\OnlineShop.ConsoleAppTestApp.csproj", "{619451EE-902B-461B-BA78-7E9B0053F71E}"
 EndProject

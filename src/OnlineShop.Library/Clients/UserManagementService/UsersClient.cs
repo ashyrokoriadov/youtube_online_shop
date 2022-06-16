@@ -18,7 +18,7 @@ namespace OnlineShop.Library.Clients.UserManagementService
         public UsersClient(HttpClient client, IOptions<ServiceAdressOptions> options)
         {
             HttpClient = client;
-            HttpClient.BaseAddress = new Uri(options.Value.AuthentificationService);
+            HttpClient.BaseAddress = new Uri(options.Value.UserManagementService);
         }
 
         public HttpClient HttpClient { get; init; }

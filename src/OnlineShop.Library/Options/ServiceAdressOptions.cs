@@ -4,6 +4,6 @@
     {
         public const string SectionName = nameof(ServiceAdressOptions);
         public string IdentityServer { get; set; }
-        public string AuthentificationService { get; set; } 
+        public string UserManagementService { get; set; } 
     }
 }
