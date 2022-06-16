@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Library.Authentification.Models;
 using OnlineShop.Library.Authentification.Requests;
+using OnlineShop.Library.Constants;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,6 +12,7 @@ namespace OnlineShop.AuthenticationService.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class UsersController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -18,21 +21,30 @@ namespace OnlineShop.AuthenticationService.Controllers
             _userManager = userManager;
         }
 
-        [HttpPost("add")]
+        [HttpPost(RepoActions.Add)]
         public Task<IdentityResult> Add(CreateUserRequest request) 
         {
             var result = _userManager.CreateAsync(request.User, request.Password);
             return result;
         }
 
-        [HttpPost("update")]
-        public Task<IdentityResult> Update(ApplicationUser user)
+        [HttpPost(RepoActions.Update)]
+        public async Task<IdentityResult> Update(ApplicationUser user)
         {
-            var result = _userManager.UpdateAsync(user);
+            var userToBeUpdated = await _userManager.FindByNameAsync(user.UserName);
+            if (userToBeUpdated == null)
+                return IdentityResult.Failed(new IdentityError() { Description = $"User {user.UserName} was not found." });
+
+            userToBeUpdated.DefaultAddress = user.DefaultAddress;
+            userToBeUpdated.DeliveryAddress = user.DeliveryAddress;
+            userToBeUpdated.PhoneNumber = user.PhoneNumber;
+            userToBeUpdated.Email = user.Email;
+
+            var result = await _userManager.UpdateAsync(userToBeUpdated);
             return result;
         }
 
-        [HttpPost("remove")]
+        [HttpPost(RepoActions.Remove)]
         public Task<IdentityResult> Remove(ApplicationUser user)
         {
             var result = _userManager.DeleteAsync(user);
@@ -46,10 +58,21 @@ namespace OnlineShop.AuthenticationService.Controllers
             return result;
         }
 
-        [HttpGet("all")]
+        [HttpGet(RepoActions.GetAll)]
         public IEnumerable<ApplicationUser> Get()
         {
             var result = _userManager.Users.AsEnumerable();
+            return result;
+        }
+
+        [HttpPost("changepassword")]
+        public async Task<IdentityResult> ChangePassword(UserPasswordChangeRequest request)
+        {
+            var user = await _userManager.FindByNameAsync(request.UserName);
+            if (user == null)
+                return IdentityResult.Failed(new IdentityError() { Description = $"User {request.UserName} was not found."});
+
+            var result = await _userManager.ChangePasswordAsync(user, request.CurrentPassword, request.NewPassword);
             return result;
         }
     }

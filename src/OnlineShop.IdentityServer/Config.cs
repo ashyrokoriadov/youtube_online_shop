@@ -21,8 +21,8 @@ namespace OnlineShop.IdentityServer
         public static IEnumerable<ApiScope> ApiScopes =>
             new ApiScope[]
             {
-                new ApiScope(IdentityConstants.ApiScope),
-                new ApiScope(IdentityConstants.WebScope),
+                new ApiScope(IdConstants.ApiScope),
+                new ApiScope(IdConstants.WebScope),
             };
 
         public static IEnumerable<Client> Clients =>
@@ -40,8 +40,8 @@ namespace OnlineShop.IdentityServer
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        IdentityConstants.WebScope,
-                        IdentityConstants.ApiScope
+                        IdConstants.WebScope,
+                        IdConstants.ApiScope
                     }
                 },
 
@@ -56,7 +56,7 @@ namespace OnlineShop.IdentityServer
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        IdentityConstants.WebScope
+                        IdConstants.WebScope
                     }
                 }
             };

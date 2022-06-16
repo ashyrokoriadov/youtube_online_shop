@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineShop.AuthenticationService.Controllers
+namespace OnlineShop.Library.Clients.AuthenticationService
 {
-    public class PasswordController
+    public interface IRolesClient
     {
     }
 }

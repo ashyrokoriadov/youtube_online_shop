@@ -1,23 +1,14 @@
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Identity.Web;
 using OnlineShop.Library.Authentification.Models;
 using OnlineShop.Library.Constants;
 using OnlineShop.Library.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace OnlineShop.AuthenticationService
 {
@@ -40,6 +31,24 @@ namespace OnlineShop.AuthenticationService
                .AddEntityFrameworkStores<UsersDbContext>()
                .AddDefaultTokenProviders();
 
+            services.AddAuthentication(
+                IdentityServerAuthenticationDefaults.AuthenticationScheme)
+                .AddIdentityServerAuthentication(options =>
+                {
+                    options.Authority = "https://localhost:5001";
+                    options.ApiName = "https://localhost:5001/resources";
+                    options.RequireHttpsMetadata = false;
+                });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("ApiScope", policy =>
+                {
+                    policy.RequireAuthenticatedUser();
+                    policy.RequireClaim("scope", IdConstants.ApiScope);
+                });
+            });
+
             services.AddControllers();
         }
 
@@ -55,12 +64,12 @@ namespace OnlineShop.AuthenticationService
 
             app.UseRouting();
 
-            //app.UseAuthentication();
-            //app.UseAuthorization();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllers().RequireAuthorization("ApiScope"); 
             });
         }
     }
