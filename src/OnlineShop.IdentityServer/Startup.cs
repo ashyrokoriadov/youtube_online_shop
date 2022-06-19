@@ -18,6 +18,7 @@ using IdentityServer4.EntityFramework.Mappers;
 using System.Linq;
 using OnlineShop.Library.Data;
 using OnlineShop.Library.UserManagementService.Models;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace OnlineShop.IdentityServer
 {
@@ -59,13 +60,21 @@ namespace OnlineShop.IdentityServer
                 {
                     options.ConfigureDbContext = b => b.UseSqlServer(
                         Configuration.GetConnectionString(ConnectionNames.IdentityServerConnection),
-                        sql => sql.MigrationsAssembly(migrationsAssembly));
+                        sql => { 
+                            sql.MigrationsAssembly(migrationsAssembly);
+                            sql.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);
+                        })
+                    .ConfigureWarnings(warnings => warnings.Ignore(CoreEventId.RowLimitingOperationWithoutOrderByWarning));
                 })
                 .AddOperationalStore(options =>
                 {
                     options.ConfigureDbContext = b => b.UseSqlServer(
                         Configuration.GetConnectionString(ConnectionNames.IdentityServerConnection),
-                        sql => sql.MigrationsAssembly(migrationsAssembly));
+                        sql => {
+                            sql.MigrationsAssembly(migrationsAssembly);
+                            sql.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);
+                        })
+                    .ConfigureWarnings(warnings => warnings.Ignore(CoreEventId.RowLimitingOperationWithoutOrderByWarning));
                 })
                 .AddAspNetIdentity<ApplicationUser>();
 
