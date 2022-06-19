@@ -65,7 +65,7 @@ namespace OnlineShop.UserManagementService.Controllers
             return result;
         }
 
-        [HttpPost(UserControllerRoutes.ChangePassword)]
+        [HttpPost(UsersControllerRoutes.ChangePassword)]
         public async Task<IdentityResult> ChangePassword(UserPasswordChangeRequest request)
         {
             var user = await _userManager.FindByNameAsync(request.UserName);
@@ -76,7 +76,7 @@ namespace OnlineShop.UserManagementService.Controllers
             return result;
         }
 
-        [HttpPost(UserControllerRoutes.AddToRole)]
+        [HttpPost(UsersControllerRoutes.AddToRole)]
         public async Task<IdentityResult> AddToRole(AddRemoveRoleRequest request)
         {
             var user = await _userManager.FindByNameAsync(request.UserName);
@@ -87,7 +87,7 @@ namespace OnlineShop.UserManagementService.Controllers
             return result;
         }
 
-        [HttpPost(UserControllerRoutes.AddToRoles)]
+        [HttpPost(UsersControllerRoutes.AddToRoles)]
         public async Task<IdentityResult> AddToRoles(AddRemoveRolesRequest request)
         {
             var user = await _userManager.FindByNameAsync(request.UserName);
@@ -98,7 +98,7 @@ namespace OnlineShop.UserManagementService.Controllers
             return result;
         }
 
-        [HttpPost(UserControllerRoutes.RemoveFromRole)]
+        [HttpPost(UsersControllerRoutes.RemoveFromRole)]
         public async Task<IdentityResult> RemoveFromRole(AddRemoveRoleRequest request)
         {
             var user = await _userManager.FindByNameAsync(request.UserName);
@@ -109,7 +109,7 @@ namespace OnlineShop.UserManagementService.Controllers
             return result;
         }
 
-        [HttpPost(UserControllerRoutes.RemoveFromRoles)]
+        [HttpPost(UsersControllerRoutes.RemoveFromRoles)]
         public async Task<IdentityResult> RemoveFromRoles(AddRemoveRolesRequest request)
         {
             var user = await _userManager.FindByNameAsync(request.UserName);

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
+using OnlineShop.Library.Constants;
 using OnlineShop.Library.Options;
 using OnlineShop.Library.UserManagementService.Responses;
 using System.Collections.Generic;
@@ -12,14 +13,19 @@ namespace OnlineShop.Library.Clients.UserManagementService
     {
         public RolesClient(HttpClient httpClient, IOptions<ServiceAdressOptions> options) : base(httpClient, options) { }
 
-        public async Task<IdentityResult> Add(IdentityRole role) => await SendPostRequest(role, "/roles/add");
+        public async Task<IdentityResult> Add(IdentityRole role) 
+            => await SendPostRequest(role, $"/{RolesControllerRoutes.ControllerName}/{RepoActions.Add}");
 
-        public async Task<UserManagementServiceResponse<IdentityRole>> Get(string name) => await SendGetRequest<IdentityRole>($"roles?name={name}");
+        public async Task<UserManagementServiceResponse<IdentityRole>> Get(string name) 
+            => await SendGetRequest<IdentityRole>($"{RolesControllerRoutes.ControllerName}?name={name}");
 
-        public async Task<UserManagementServiceResponse<IEnumerable<IdentityRole>>> GetAll() => await SendGetRequest<IEnumerable<IdentityRole>>("/roles/all");
+        public async Task<UserManagementServiceResponse<IEnumerable<IdentityRole>>> GetAll() 
+            => await SendGetRequest<IEnumerable<IdentityRole>>($"/{RolesControllerRoutes.ControllerName}/{RepoActions.GetAll}");
 
-        public async Task<IdentityResult> Remove(IdentityRole role) => await SendPostRequest(role, "/roles/remove");
+        public async Task<IdentityResult> Remove(IdentityRole role) 
+            => await SendPostRequest(role, $"/{RolesControllerRoutes.ControllerName}/{RepoActions.Remove}");
 
-        public async Task<IdentityResult> Update(IdentityRole role) => await SendPostRequest(role, "/roles/update");
+        public async Task<IdentityResult> Update(IdentityRole role) 
+            => await SendPostRequest(role, $"/{RolesControllerRoutes.ControllerName}/{RepoActions.Update}");
     }
 }

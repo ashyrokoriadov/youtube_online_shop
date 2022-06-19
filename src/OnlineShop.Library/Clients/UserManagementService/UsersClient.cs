@@ -15,24 +15,34 @@ namespace OnlineShop.Library.Clients.UserManagementService
     {       
         public UsersClient(HttpClient httpClient, IOptions<ServiceAdressOptions> options) : base(httpClient, options) { }
 
-        public async Task<IdentityResult> Add(CreateUserRequest request) => await SendPostRequest(request, "/users/add");
+        public async Task<IdentityResult> Add(CreateUserRequest request) 
+            => await SendPostRequest(request, $"/{UsersControllerRoutes.ControllerName}/{RepoActions.Add}");
 
-        public async Task<IdentityResult> ChangePassword(UserPasswordChangeRequest request) => await SendPostRequest(request, "/users/changepassword");
+        public async Task<IdentityResult> ChangePassword(UserPasswordChangeRequest request) 
+            => await SendPostRequest(request, $"/{UsersControllerRoutes.ControllerName}/{UsersControllerRoutes.ChangePassword}");
 
-        public async Task<IdentityResult> AddToRole(AddRemoveRoleRequest request) => await SendPostRequest(request, $"/users/{UserControllerRoutes.AddToRole}");
+        public async Task<IdentityResult> AddToRole(AddRemoveRoleRequest request) 
+            => await SendPostRequest(request, $"/{UsersControllerRoutes.ControllerName}/{UsersControllerRoutes.AddToRole}");
 
-        public async Task<IdentityResult> AddToRoles(AddRemoveRolesRequest request) => await SendPostRequest(request, $"/users/{UserControllerRoutes.AddToRoles}");
+        public async Task<IdentityResult> AddToRoles(AddRemoveRolesRequest request) 
+            => await SendPostRequest(request, $"/{UsersControllerRoutes.ControllerName}/{UsersControllerRoutes.AddToRoles}");
 
-        public async Task<IdentityResult> RemoveFromRole(AddRemoveRoleRequest request) => await SendPostRequest(request, $"/users/{UserControllerRoutes.RemoveFromRole}");
+        public async Task<IdentityResult> RemoveFromRole(AddRemoveRoleRequest request) 
+            => await SendPostRequest(request, $"/{UsersControllerRoutes.ControllerName}/{UsersControllerRoutes.RemoveFromRole}");
 
-        public async Task<IdentityResult> RemoveFromRoles(AddRemoveRolesRequest request) => await SendPostRequest(request, $"/users/{UserControllerRoutes.RemoveFromRoles}");
+        public async Task<IdentityResult> RemoveFromRoles(AddRemoveRolesRequest request) 
+            => await SendPostRequest(request, $"/{UsersControllerRoutes.ControllerName}/{UsersControllerRoutes.RemoveFromRoles}");
 
-        public async Task<UserManagementServiceResponse<ApplicationUser>> Get(string name) => await SendGetRequest<ApplicationUser>($"users?name={name}");
+        public async Task<UserManagementServiceResponse<ApplicationUser>> Get(string name) 
+            => await SendGetRequest<ApplicationUser>($"{UsersControllerRoutes.ControllerName}?name={name}");
 
-        public async Task<UserManagementServiceResponse<IEnumerable<ApplicationUser>>> GetAll() => await SendGetRequest<IEnumerable<ApplicationUser>>("/users/all");
+        public async Task<UserManagementServiceResponse<IEnumerable<ApplicationUser>>> GetAll() 
+            => await SendGetRequest<IEnumerable<ApplicationUser>>($"/{UsersControllerRoutes.ControllerName}/{RepoActions.GetAll}");
 
-        public async Task<IdentityResult> Remove(ApplicationUser user) => await SendPostRequest(user, "/users/remove");       
+        public async Task<IdentityResult> Remove(ApplicationUser user) 
+            => await SendPostRequest(user, $"/{UsersControllerRoutes.ControllerName}/{RepoActions.Remove}");       
 
-        public async Task<IdentityResult> Update(ApplicationUser user) => await SendPostRequest(user, "/users/update");       
+        public async Task<IdentityResult> Update(ApplicationUser user) 
+            => await SendPostRequest(user, $"/{UsersControllerRoutes.ControllerName}/{RepoActions.Update}");       
     }
 }
