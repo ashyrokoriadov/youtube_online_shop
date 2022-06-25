@@ -35,6 +35,8 @@ namespace OnlineShop.UserManagementService.Controllers
             if (userToBeUpdated == null)
                 return IdentityResult.Failed(new IdentityError() { Description = $"User {user.UserName} was not found." });
 
+            userToBeUpdated.FirstName = user.FirstName;
+            userToBeUpdated.LastName = user.LastName;
             userToBeUpdated.DefaultAddress = user.DefaultAddress;
             userToBeUpdated.DeliveryAddress = user.DeliveryAddress;
             userToBeUpdated.PhoneNumber = user.PhoneNumber;

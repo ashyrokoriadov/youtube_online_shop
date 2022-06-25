@@ -14,7 +14,7 @@ GO
 
 ALTER TABLE [dbo].[AspNetUserClaims] ADD Id_new INT IDENTITY(1, 1)
 GO
-ALTER TABLE [dbo].[AspNetUserClaims] DROP CONSTRAINT [PK__AspNetUs__3214EC07DB2E1A91] WITH ( ONLINE = OFF ) --write here contraint name
+ALTER TABLE [dbo].[AspNetUserClaims] DROP CONSTRAINT [PK_AspNetUserClaims] WITH ( ONLINE = OFF ) --write here contraint name
 GO
 ALTER TABLE [dbo].[AspNetUserClaims] DROP COLUMN Id
 GO

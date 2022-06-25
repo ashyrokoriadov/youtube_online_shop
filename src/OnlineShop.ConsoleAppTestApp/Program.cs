@@ -49,10 +49,12 @@ namespace OnlineShop.ConsoleAppTestApp
                 try
                 {
                     var service = services.GetRequiredService<AuthenticationServiceTest>();
-                    var result = await service.RunUsersClientTests(args);
-                    //var result = await service.RunRolesClientTests(args);
 
-                    Console.WriteLine(result);
+                    var rolesResult = await service.RunRolesClientTests(args);
+                    var usersResult = await service.RunUsersClientTests(args);                    
+
+                    Console.WriteLine(rolesResult);
+                    Console.WriteLine(usersResult);
                 }
                 catch (Exception ex)
                 {

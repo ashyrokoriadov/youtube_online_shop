@@ -43,6 +43,8 @@ namespace OnlineShop.IdentityServer
                         andrey = new ApplicationUser
                         {
                             UserName = "andrey",
+                            FirstName = "Andrey",
+                            LastName = "Shyrokoryadov",
                             Email = "andrey@email.com",
                             EmailConfirmed = true,
                             DefaultAddress =  new Address()
