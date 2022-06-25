@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using OnlineShop.Library.Options;
 using OnlineShop.Library.UserManagementService.Responses;
 using System;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,8 +31,9 @@ namespace OnlineShop.Library.Clients.UserManagementService
 
             if (requestResult.IsSuccessStatusCode)
             {
-                var response = await requestResult.Content.ReadAsStringAsync();
-                result = IdentityResult.Success;
+                var responseJson = await requestResult.Content.ReadAsStringAsync();
+                var response = JsonConvert.DeserializeObject<IdentityResultDto>(responseJson);
+                result = HandleResponse(response);
             }
             else
             {
@@ -90,6 +92,18 @@ namespace OnlineShop.Library.Clients.UserManagementService
         public void Dispose()
         {
             HttpClient.Dispose();
+        }
+
+        private IdentityResult HandleResponse(IdentityResultDto response)
+        {
+            if (response.Succeeded)
+            {
+                return IdentityResult.Success;
+            }
+            else
+            {
+                return IdentityResult.Failed(response.Errors.ToArray());
+            }
         }
     }
 }

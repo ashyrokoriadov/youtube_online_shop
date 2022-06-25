@@ -29,7 +29,7 @@ namespace OnlineShop.UserManagementService.Controllers
         [HttpPost(RepoActions.Update)]
         public async Task<IdentityResult> Update(IdentityRole role)
         {
-            var roleToBeUpdated = await _roleManager.FindByNameAsync(role.Name);
+            var roleToBeUpdated = await _roleManager.FindByIdAsync(role.Id);
             if (roleToBeUpdated == null)
                 return IdentityResult.Failed(new IdentityError() { Description = $"Role {role.Name} was not found." });
 
