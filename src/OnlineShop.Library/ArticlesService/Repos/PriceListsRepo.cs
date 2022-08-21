@@ -1,8 +1,8 @@
 ﻿using OnlineShop.Library.Common.Repos;
 using OnlineShop.Library.Data;
-using OnlineShop.Library.GoodsService.Models;
+using OnlineShop.Library.ArticlesService.Models;
 
-namespace OnlineShop.Library.GoodsService.Repos
+namespace OnlineShop.Library.ArticlesService.Repos
 {
     public class PriceListsRepo : ArticlesBaseRepo<PriceList>
     {

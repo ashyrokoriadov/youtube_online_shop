@@ -19,21 +19,25 @@ namespace OnlineShop.Library.Common.Repos
 
         protected DbSet<T> Table;
 
-        public async Task<int> AddAsync(T entity)
+        public async Task<Guid> AddAsync(T entity)
         {
             await Table.AddAsync(entity);
-            return await SaveChangesAsync();
+            await SaveChangesAsync();
+            return entity.Id;
         }
 
-        public async Task<int> AddRangeAsync(IEnumerable<T> entities)
+        public async Task<IEnumerable<Guid>> AddRangeAsync(IEnumerable<T> entities)
         {
             await Table.AddRangeAsync(entities);
-            return await SaveChangesAsync();
+            await SaveChangesAsync();
+
+            var result = new List<Guid>(entities.Select(e => e.Id));
+            return result;
         }
 
         public async Task<int> DeleteAsync(Guid id)
         {
-            var entity = GetOneAsync(id);
+            var entity = await GetOneAsync(id);
 
             if (entity != null)
             {

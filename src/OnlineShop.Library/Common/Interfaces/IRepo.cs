@@ -6,9 +6,9 @@ namespace OnlineShop.Library.Common.Interfaces
 {
     public interface IRepo<T>
     {
-        Task<int> AddAsync(T entity);
+        Task<Guid> AddAsync(T entity);
 
-        Task<int> AddRangeAsync(IEnumerable<T> entities);
+        Task<IEnumerable<Guid>> AddRangeAsync(IEnumerable<T> entities);
 
         Task<T> GetOneAsync(Guid id);
 

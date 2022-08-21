@@ -4,7 +4,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace OnlineShop.Library.GoodsService.Models
+namespace OnlineShop.Library.ArticlesService.Models
 {
     public class PriceList : IIdentifiable
     {
