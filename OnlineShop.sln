@@ -15,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{8397
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sql", "sql", "{53CFB415-94A7-435C-AC5F-1DFAB90E15FD}"
 	ProjectSection(SolutionItems) = preProject
+		scripts\sql\articles_clean_up.sql = scripts\sql\articles_clean_up.sql
 		scripts\sql\is_clean_up.sql = scripts\sql\is_clean_up.sql
 		scripts\sql\roles_claims_constraints_fix.sql = scripts\sql\roles_claims_constraints_fix.sql
 		scripts\sql\users_clean_up.sql = scripts\sql\users_clean_up.sql
@@ -25,6 +26,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.UserManagementService", "src\OnlineShop.UserManagementService\OnlineShop.UserManagementService.csproj", "{36D3B845-8DB7-47CA-867A-DF01F33CA9F6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.ConsoleAppTestApp", "src\OnlineShop.ConsoleAppTestApp\OnlineShop.ConsoleAppTestApp.csproj", "{619451EE-902B-461B-BA78-7E9B0053F71E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.OrdersService", "src\OnlineShop.OrdersService\OnlineShop.OrdersService.csproj", "{6318DAE6-8642-402D-8A14-B490A759300D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +51,10 @@ Global
 		{619451EE-902B-461B-BA78-7E9B0053F71E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{619451EE-902B-461B-BA78-7E9B0053F71E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{619451EE-902B-461B-BA78-7E9B0053F71E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6318DAE6-8642-402D-8A14-B490A759300D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6318DAE6-8642-402D-8A14-B490A759300D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6318DAE6-8642-402D-8A14-B490A759300D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6318DAE6-8642-402D-8A14-B490A759300D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,6 +65,7 @@ Global
 		{53CFB415-94A7-435C-AC5F-1DFAB90E15FD} = {8397BDEA-963C-4C08-B8A6-B515D9DBF283}
 		{36D3B845-8DB7-47CA-867A-DF01F33CA9F6} = {605AA981-BB79-4F02-9AAC-27472468F0FD}
 		{619451EE-902B-461B-BA78-7E9B0053F71E} = {69AC3819-7829-4540-990A-91850B8D6C85}
+		{6318DAE6-8642-402D-8A14-B490A759300D} = {605AA981-BB79-4F02-9AAC-27472468F0FD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D0AE5EBA-8C07-4DBB-A3E2-7D6420A28001}
