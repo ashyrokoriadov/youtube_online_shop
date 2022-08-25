@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace OnlineShop.Library.Common.Repos
 {
-    public abstract class ArticlesBaseRepo<T> : IRepo<T> where T : class, IIdentifiable, new()
+    public abstract class BaseRepo<T> : IRepo<T> where T : class, IIdentifiable, new()
     {
-        public ArticlesBaseRepo(ArticlesDbContext context)
+        public BaseRepo(OrdersDbContext context)
         {
             Context = context;
         }
 
-        public ArticlesDbContext Context { get; init; }
+        public OrdersDbContext Context { get; init; }
 
         protected DbSet<T> Table;
 
@@ -61,9 +61,9 @@ namespace OnlineShop.Library.Common.Repos
             return result;
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync() => await Table.ToListAsync();
+        public virtual async Task<IEnumerable<T>> GetAllAsync() => await Table.ToListAsync();
 
-        public async Task<T> GetOneAsync(Guid id) => await Task.Run(() => Table.FirstOrDefault(entity => entity.Id == id));
+        public virtual async Task<T> GetOneAsync(Guid id) => await Task.Run(() => Table.FirstOrDefault(entity => entity.Id == id));
 
         public async Task<int> SaveAsync(T entity)
         {

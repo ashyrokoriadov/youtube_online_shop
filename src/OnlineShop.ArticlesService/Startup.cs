@@ -32,8 +32,8 @@ namespace ArticlesService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ArticlesDbContext>(options =>
-               options.UseSqlServer(Configuration.GetConnectionString(ConnectionNames.ArticlesConnection)));
+            services.AddDbContext<OrdersDbContext>(options =>
+               options.UseSqlServer(Configuration.GetConnectionString(ConnectionNames.OrdersConnection)));
 
             services.AddTransient<IRepo<Article>, ArticlesRepo>();
             services.AddTransient<IRepo<PriceList>, PriceListsRepo>();

@@ -54,21 +54,21 @@ namespace OnlineShop.Library.Common.Repos
         }
 
         [HttpPost(RepoActions.Remove)]
-        public async Task<ActionResult> Remove([FromBody] Guid id)
+        public virtual async Task<ActionResult> Remove([FromBody] Guid id)
         {
             await EntitiesRepo.DeleteAsync(id);
             return NoContent();
         }
 
         [HttpPost(RepoActions.RemoveRange)]
-        public async Task<ActionResult> Remove([FromBody] IEnumerable<Guid> ids)
+        public virtual async Task<ActionResult> Remove([FromBody] IEnumerable<Guid> ids)
         {
             await EntitiesRepo.DeleteRangeAsync(ids);
             return NoContent();
         }
 
         [HttpPost(RepoActions.Update)]
-        public async Task<ActionResult> Update([FromBody] T entity)
+        public virtual async Task<ActionResult> Update([FromBody] T entity)
         {
             if (!ModelState.IsValid)
             {

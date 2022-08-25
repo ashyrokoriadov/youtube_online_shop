@@ -9,9 +9,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using OnlineShop.Library.ArticlesService.Models;
 using OnlineShop.Library.Common.Interfaces;
 using OnlineShop.Library.Constants;
 using OnlineShop.Library.Data;
+using OnlineShop.Library.OrdersService.Models;
+using OnlineShop.Library.OrdersService.Repos;
 using OnlineShop.Library.UserManagementService.Models;
 using System;
 using System.Collections.Generic;
@@ -33,8 +36,11 @@ namespace OnlineShop.OrdersService
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddDbContext<ArticlesDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString(ConnectionNames.ArticlesConnection)));
+            services.AddDbContext<OrdersDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString(ConnectionNames.OrdersConnection)));
+
+            services.AddTransient<IOrdersRepo, OrdersRepo>();
+            services.AddTransient<IRepo<OrderedArticle>, OrderedArticlesRepo>();
 
             //services.AddIdentity<ApplicationUser, IdentityRole>()
             //   .AddEntityFrameworkStores<UsersDbContext>()

@@ -15,7 +15,7 @@ namespace OnlineShop.ArticlesService.Controllers
         protected override void UpdateProperties(PriceList source, PriceList destination)
         {
             destination.ArticleId = source.ArticleId;
-            destination.Value = source.Value;
+            destination.Price = source.Price;
             destination.Name = source.Name;
             destination.ValidFrom = source.ValidFrom;
             destination.ValidTo = source.ValidTo;

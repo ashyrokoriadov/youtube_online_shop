@@ -4,9 +4,9 @@ using OnlineShop.Library.ArticlesService.Models;
 
 namespace OnlineShop.Library.ArticlesService.Repos
 {
-    public class PriceListsRepo : ArticlesBaseRepo<PriceList>
+    public class PriceListsRepo : BaseRepo<PriceList>
     {
-        public PriceListsRepo(ArticlesDbContext context) : base(context)
+        public PriceListsRepo(OrdersDbContext context) : base(context)
         {
             Table = Context.PriceLists;
         }

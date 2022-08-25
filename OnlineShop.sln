@@ -15,8 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{8397
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sql", "sql", "{53CFB415-94A7-435C-AC5F-1DFAB90E15FD}"
 	ProjectSection(SolutionItems) = preProject
-		scripts\sql\articles_clean_up.sql = scripts\sql\articles_clean_up.sql
 		scripts\sql\is_clean_up.sql = scripts\sql\is_clean_up.sql
+		scripts\sql\orders_clean_up.sql = scripts\sql\orders_clean_up.sql
 		scripts\sql\roles_claims_constraints_fix.sql = scripts\sql\roles_claims_constraints_fix.sql
 		scripts\sql\users_clean_up.sql = scripts\sql\users_clean_up.sql
 	EndProjectSection
@@ -29,7 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.ConsoleAppTestAp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.OrdersService", "src\OnlineShop.OrdersService\OnlineShop.OrdersService.csproj", "{6318DAE6-8642-402D-8A14-B490A759300D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShop.ArticlesService", "src\OnlineShop.ArticlesService\OnlineShop.ArticlesService.csproj", "{0F6F376B-0E89-4B54-AA2E-AD9F7C02BCAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.ArticlesService", "src\OnlineShop.ArticlesService\OnlineShop.ArticlesService.csproj", "{0F6F376B-0E89-4B54-AA2E-AD9F7C02BCAF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
