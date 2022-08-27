@@ -14,6 +14,13 @@ namespace OnlineShop.Library.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<OrderedArticle>()
+                .HasOne<Order>(e => e.Order)
+                .WithMany(d => d.Articles)
+                .HasForeignKey(e => e.OrderId)
+                .IsRequired(true)
+                .OnDelete(DeleteBehavior.Cascade);
         }
 
         public virtual DbSet<Article> Articles { get; set; }

@@ -10,7 +10,7 @@ using OnlineShop.Library.Data;
 namespace OnlineShop.Library.Data.Migrations.Orders
 {
     [DbContext(typeof(OrdersDbContext))]
-    [Migration("20220823162823_InitialOrdersCreate")]
+    [Migration("20220827054139_InitialOrdersCreate")]
     partial class InitialOrdersCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,7 +54,7 @@ namespace OnlineShop.Library.Data.Migrations.Orders
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("OrderId")
+                    b.Property<Guid>("OrderId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Price")
@@ -134,9 +134,13 @@ namespace OnlineShop.Library.Data.Migrations.Orders
 
             modelBuilder.Entity("OnlineShop.Library.ArticlesService.Models.OrderedArticle", b =>
                 {
-                    b.HasOne("OnlineShop.Library.OrdersService.Models.Order", null)
+                    b.HasOne("OnlineShop.Library.OrdersService.Models.Order", "Order")
                         .WithMany("Articles")
-                        .HasForeignKey("OrderId");
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("OnlineShop.Library.ArticlesService.Models.PriceList", b =>

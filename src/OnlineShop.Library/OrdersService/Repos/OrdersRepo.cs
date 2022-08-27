@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace OnlineShop.Library.OrdersService.Repos
 {
-    public class OrdersRepo : BaseRepo<Order>, IOrdersRepo
+    public class OrdersRepo : BaseRepo<Order>
     {
         private readonly IRepo<OrderedArticle> _orderedArticlesRepo;
 
@@ -24,18 +24,5 @@ namespace OnlineShop.Library.OrdersService.Repos
         public override async Task<IEnumerable<Order>> GetAllAsync() => await Table.Include(nameof(Order.Articles)).ToListAsync();
 
         public override async Task<Order> GetOneAsync(Guid id) => await Task.Run(() => Table.Include(nameof(Order.Articles)).FirstOrDefault(entity => entity.Id == id));
-
-        public async Task<int> DeleteArticlesFromOrderAsync(IEnumerable<Guid> articlesId)
-        {
-            int result = 0;
-
-            foreach (var id in articlesId)
-            {
-                var affectedValue = await _orderedArticlesRepo.DeleteAsync(id);
-                result += affectedValue;
-            }
-
-            return result;
-        }
     }
 }

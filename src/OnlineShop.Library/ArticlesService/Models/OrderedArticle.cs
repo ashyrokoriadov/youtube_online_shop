@@ -1,7 +1,9 @@
 ﻿using OnlineShop.Library.Common.Interfaces;
+using OnlineShop.Library.OrdersService.Models;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace OnlineShop.Library.ArticlesService.Models
 {
@@ -36,5 +38,11 @@ namespace OnlineShop.Library.ArticlesService.Models
 
         [Column(TypeName = "datetime2"), Required]
         public DateTime ValidTo { get; set; }
+
+        [ForeignKey("Order")]
+        public Guid OrderId { get; set; }
+
+        [JsonIgnore]
+        public virtual Order Order { get; set; }
     }
 }

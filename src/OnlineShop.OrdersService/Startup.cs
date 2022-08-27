@@ -39,7 +39,7 @@ namespace OnlineShop.OrdersService
             services.AddDbContext<OrdersDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString(ConnectionNames.OrdersConnection)));
 
-            services.AddTransient<IOrdersRepo, OrdersRepo>();
+            services.AddTransient<IRepo<Order>, OrdersRepo>();
             services.AddTransient<IRepo<OrderedArticle>, OrderedArticlesRepo>();
 
             //services.AddIdentity<ApplicationUser, IdentityRole>()
