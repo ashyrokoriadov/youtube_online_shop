@@ -77,15 +77,15 @@ namespace OnlineShop.Library.Common.Repos
             {
                 return await Context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateConcurrencyException ex)
             {
                 throw;
             }
-            catch (DbUpdateException)
+            catch (DbUpdateException ex)
             {
                 throw;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw;
             }
