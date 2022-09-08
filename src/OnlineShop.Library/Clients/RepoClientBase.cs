@@ -24,7 +24,7 @@ namespace OnlineShop.Library.Clients
 
         protected abstract void SetControllerName();
 
-        protected HttpClient HttpClient { get; init; }
+        public HttpClient HttpClient { get; init; }
 
         protected string ControllerName { get; set; }
 

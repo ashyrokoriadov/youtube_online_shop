@@ -58,7 +58,7 @@ namespace OnlineShop.Library.Data.Migrations.Orders
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("numeric(12,10)");
+                        .HasColumnType("numeric(12,4)");
 
                     b.Property<string>("PriceListName")
                         .IsRequired()
@@ -94,7 +94,7 @@ namespace OnlineShop.Library.Data.Migrations.Orders
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("numeric(12,10)");
+                        .HasColumnType("numeric(12,4)");
 
                     b.Property<DateTime>("ValidFrom")
                         .HasColumnType("datetime2");

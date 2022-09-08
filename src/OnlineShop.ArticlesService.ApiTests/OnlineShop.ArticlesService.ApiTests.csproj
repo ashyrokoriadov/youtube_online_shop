@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="OrderedArticlesRepoClientTests.cs~RF224b7bab.TMP" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoFixture" Version="4.17.0" />
     <PackageReference Include="IdentityModel" Version="4.3.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
@@ -22,7 +18,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OnlineShop.Library\OnlineShop.Library.csproj" />
-    <ProjectReference Include="..\OnlineShop.OrdersService\OnlineShop.OrdersService.csproj" />
   </ItemGroup>
 
 </Project>

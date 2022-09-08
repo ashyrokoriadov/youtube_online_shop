@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Library.Common.Interfaces;
 using OnlineShop.Library.Common.Repos;
 using OnlineShop.Library.OrdersService.Models;
@@ -8,6 +9,7 @@ namespace OnlineShop.OrdersService.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+	[Authorize(AuthenticationSchemes = "Bearer")]
     public class OrdersController : RepoControllerBase<Order>
     {
         public OrdersController(IRepo<Order> ordersRepo) : base(ordersRepo)

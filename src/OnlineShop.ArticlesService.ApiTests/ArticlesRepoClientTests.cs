@@ -1,27 +1,25 @@
 using AutoFixture;
-using IdentityModel.Client;
 using Microsoft.Extensions.Options;
 using Moq;
 using NUnit.Framework;
 using OnlineShop.Library.ArticlesService.Models;
+using OnlineShop.Library.Clients.ArticlesService;
 using OnlineShop.Library.Clients.IdentityServer;
-using OnlineShop.Library.Clients.OrdersService;
 using OnlineShop.Library.Options;
-using OnlineShop.Library.OrdersService.Models;
-using System;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using IdentityModel.Client;
 
-namespace OnlineShop.OrdersService.ApiTests
+namespace OnlineShop.ArticlesService.ApiTests
 {
-    public class OrdersRepoClientTests
+    public class ArticlesRepoClientTests
     {
         private readonly Fixture _fixture = new Fixture();
         private IdentityServerClient _identityServerClient;
-        private OrdersClient _systemUnderTests;
+        private ArticlesClient _systemUnderTests;
 
-        public OrdersRepoClientTests()
+        public ArticlesRepoClientTests()
         {
             _fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList().ForEach(b => _fixture.Behaviors.Remove(b));
             _fixture.Behaviors.Add(new OmitOnRecursionBehavior());
@@ -31,9 +29,9 @@ namespace OnlineShop.OrdersService.ApiTests
         public async Task Setup()
         {
             var serviceAdressOptionsMock = new Mock<IOptions<ServiceAdressOptions>>();
-            serviceAdressOptionsMock.Setup(m => m.Value).Returns(new ServiceAdressOptions() { OrdersService = "https://localhost:5005", IdentityServer = "https://localhost:5001" });
+            serviceAdressOptionsMock.Setup(m => m.Value).Returns(new ServiceAdressOptions() {ArticlesService = "https://localhost:5007", IdentityServer = "https://localhost:5001" });
 
-            _systemUnderTests = new OrdersClient(new HttpClient(), serviceAdressOptionsMock.Object);
+            _systemUnderTests = new ArticlesClient(new HttpClient(), serviceAdressOptionsMock.Object);
             _identityServerClient = new IdentityServerClient(new HttpClient(), serviceAdressOptionsMock.Object);
 
             var identityOptions = new IdentityServerApiOptions()
@@ -49,9 +47,7 @@ namespace OnlineShop.OrdersService.ApiTests
         [Test]
         public async Task GIVEN_Orders_Repo_Client_WHEN_I_add_order_THEN_it_is_being_added_to_database()
         {
-            var expected = _fixture.Build<Order>()
-                .With(o => o.Articles, _fixture.CreateMany<OrderedArticle>().ToList())
-                .Create();
+            var expected = _fixture.Build<Article>().Create();
 
             var addResponse = await _systemUnderTests.Add(expected);
             Assert.IsTrue(addResponse.IsSuccessfull);
@@ -69,13 +65,9 @@ namespace OnlineShop.OrdersService.ApiTests
         [Test]
         public async Task GIVEN_Orders_Repo_Client_WHEN_I_add_several_orders_THEN_it_is_being_added_to_database()
         {
-            var expected1 = _fixture.Build<Order>()
-                .With(o => o.Articles, _fixture.CreateMany<OrderedArticle>().ToList())
-                .Create();
+            var expected1 = _fixture.Build<Article>().Create();
 
-            var expected2 = _fixture.Build<Order>()
-                .With(o => o.Articles, _fixture.CreateMany<OrderedArticle>().ToList())
-                .Create();
+            var expected2 = _fixture.Build<Article>().Create();
 
             var ordersToAdd = new[] { expected1, expected2 };
 
@@ -87,7 +79,7 @@ namespace OnlineShop.OrdersService.ApiTests
 
             var addedOrders = getAllResponse.Payload;
 
-            foreach(var orderId in addRangeResponse.Payload)
+            foreach (var orderId in addRangeResponse.Payload)
             {
                 var expectedOrder = ordersToAdd.Single(o => o.Id == orderId);
                 var actualOrder = addedOrders.Single(o => o.Id == orderId);
@@ -101,20 +93,13 @@ namespace OnlineShop.OrdersService.ApiTests
         [Test]
         public async Task GIVEN_Orders_Repo_Client_WHEN_I_update_order_THEN_it_is_being_update_in_database()
         {
-            var orderedArticles = _fixture.CreateMany<OrderedArticle>().ToList();
-
-            var expected = _fixture.Build<Order>()
-                .With(o => o.Articles, orderedArticles)
-                .Create();
+            var expected = _fixture.Build<Article>().Create();
 
             var addResponse = await _systemUnderTests.Add(expected);
             Assert.IsTrue(addResponse.IsSuccessfull);
 
-            orderedArticles.ForEach(oa => oa.Name = _fixture.Create<string>());
-
-            expected.UserId = _fixture.Create<Guid>();
-            expected.AddressId = _fixture.Create<Guid>();
-            expected.Articles = orderedArticles;
+            expected.Name = _fixture.Create<string>();
+            expected.Description = _fixture.Create<string>();
 
             var updateResponse = await _systemUnderTests.Update(expected);
             Assert.IsTrue(updateResponse.IsSuccessfull);
@@ -126,13 +111,11 @@ namespace OnlineShop.OrdersService.ApiTests
             Assert.IsTrue(removeResponse.IsSuccessfull);
         }
 
-        private void AssertObjectsAreEqual(Order expected, Order actual)
+        private void AssertObjectsAreEqual(Article expected, Article actual)
         {
             Assert.AreEqual(expected.Id, actual.Id);
-            Assert.AreEqual(expected.AddressId, actual.AddressId);
-            Assert.AreEqual(expected.UserId, actual.UserId);
-            Assert.AreEqual(expected.Created, actual.Created);
-            Assert.AreEqual(expected.Articles.Count(), actual.Articles.Count());
+            Assert.AreEqual(expected.Name, actual.Name);
+            Assert.AreEqual(expected.Description, actual.Description);
         }
     }
 }

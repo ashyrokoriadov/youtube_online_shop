@@ -38,31 +38,33 @@ namespace OnlineShop.OrdersService
 
             services.AddDbContext<OrdersDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString(ConnectionNames.OrdersConnection)));
+            services.AddDbContext<UsersDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString(ConnectionNames.UsersConnection)));
 
             services.AddTransient<IRepo<Order>, OrdersRepo>();
             services.AddTransient<IRepo<OrderedArticle>, OrderedArticlesRepo>();
 
-            //services.AddIdentity<ApplicationUser, IdentityRole>()
-            //   .AddEntityFrameworkStores<UsersDbContext>()
-            //   .AddDefaultTokenProviders();
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+               .AddEntityFrameworkStores<UsersDbContext>()
+               .AddDefaultTokenProviders();
 
-            //services.AddAuthentication(
-            //    IdentityServerAuthenticationDefaults.AuthenticationScheme)
-            //    .AddIdentityServerAuthentication(options =>
-            //    {
-            //        options.Authority = "https://localhost:5001";
-            //        options.ApiName = "https://localhost:5001/resources";
-            //        options.RequireHttpsMetadata = false;
-            //    });
+            services.AddAuthentication(
+                IdentityServerAuthenticationDefaults.AuthenticationScheme)
+                .AddIdentityServerAuthentication(options =>
+                {
+                    options.Authority = "https://localhost:5001";
+                    options.ApiName = "https://localhost:5001/resources";
+                    options.RequireHttpsMetadata = false;
+                });
 
-            //services.AddAuthorization(options =>
-            //{
-            //    options.AddPolicy("ApiScope", policy =>
-            //    {
-            //        policy.RequireAuthenticatedUser();
-            //        policy.RequireClaim("scope", IdConstants.ApiScope);
-            //    });
-            //});
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("ApiScope", policy =>
+                {
+                    policy.RequireAuthenticatedUser();
+                    policy.RequireClaim("scope", IdConstants.ApiScope);
+                });
+            });
 
             services.AddControllers();
         }
@@ -79,11 +81,12 @@ namespace OnlineShop.OrdersService
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllers().RequireAuthorization("ApiScope"); 
             });
         }
     }

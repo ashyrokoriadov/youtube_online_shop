@@ -41,7 +41,7 @@ namespace OnlineShop.Library.Data.Migrations.Orders
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ArticleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Price = table.Column<decimal>(type: "numeric(12,10)", nullable: false),
+                    Price = table.Column<decimal>(type: "numeric(12,4)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ValidFrom = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ValidTo = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -64,7 +64,7 @@ namespace OnlineShop.Library.Data.Migrations.Orders
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<decimal>(type: "numeric(12,10)", nullable: false),
+                    Price = table.Column<decimal>(type: "numeric(12,4)", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     PriceListName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ValidFrom = table.Column<DateTime>(type: "datetime2", nullable: false),

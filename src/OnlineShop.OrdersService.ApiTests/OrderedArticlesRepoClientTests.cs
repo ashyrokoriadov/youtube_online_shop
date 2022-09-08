@@ -1,8 +1,10 @@
 ﻿using AutoFixture;
+using IdentityModel.Client;
 using Microsoft.Extensions.Options;
 using Moq;
 using NUnit.Framework;
 using OnlineShop.Library.ArticlesService.Models;
+using OnlineShop.Library.Clients.IdentityServer;
 using OnlineShop.Library.Clients.OrdersService;
 using OnlineShop.Library.Options;
 using OnlineShop.Library.OrdersService.Models;
@@ -18,6 +20,7 @@ namespace OnlineShop.OrdersService.ApiTests
     public class OrderedArticlesRepoClientTests
     {
         private readonly Fixture _fixture = new Fixture();
+        private IdentityServerClient _identityServerClient;
         private OrdersClient _ordersClient;
         private OrderedArticlesClient _systemUnderTests;
 
@@ -28,13 +31,24 @@ namespace OnlineShop.OrdersService.ApiTests
         }
 
         [SetUp]
-        public void Setup()
+        public async Task Setup()
         {
             var serviceAdressOptionsMock = new Mock<IOptions<ServiceAdressOptions>>();
-            serviceAdressOptionsMock.Setup(m => m.Value).Returns(new ServiceAdressOptions() { OrdersService = "https://localhost:5005" });
+            serviceAdressOptionsMock.Setup(m => m.Value).Returns(new ServiceAdressOptions() { OrdersService = "https://localhost:5005", IdentityServer = "https://localhost:5001" });
 
             _ordersClient = new OrdersClient(new HttpClient(), serviceAdressOptionsMock.Object);
             _systemUnderTests = new OrderedArticlesClient(new HttpClient(), serviceAdressOptionsMock.Object);
+            _identityServerClient = new IdentityServerClient(new HttpClient(), serviceAdressOptionsMock.Object);
+
+            var identityOptions = new IdentityServerApiOptions()
+            {
+                ClientId = "test.client",
+                ClientSecret = "511536EF-F270-4058-80CA-1C89C192F69A"
+            };
+
+            var token = await _identityServerClient.GetApiToken(identityOptions);
+            _systemUnderTests.HttpClient.SetBearerToken(token.AccessToken);
+            _ordersClient.HttpClient.SetBearerToken(token.AccessToken);
         }
 
         [Test]

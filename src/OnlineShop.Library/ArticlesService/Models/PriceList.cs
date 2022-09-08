@@ -16,7 +16,7 @@ namespace OnlineShop.Library.ArticlesService.Models
         [ForeignKey("Article")]
         public Guid ArticleId { get; set; }
 
-        [Column(TypeName = "numeric(12,10)")]
+        [Column(TypeName = "numeric(12,4)")]
         public decimal Price { get; set; }
 
         [Required]
