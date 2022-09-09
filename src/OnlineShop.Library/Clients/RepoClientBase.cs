@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace OnlineShop.Library.Clients
 {
-    public abstract class RepoClientBase<T> : IRepoClient<T>
+    public abstract class RepoClientBase<T> : IRepoClient<T>, IHttpClientContainer
     {
         public RepoClientBase(HttpClient client, IOptions<ServiceAdressOptions> options)
         {
