@@ -86,7 +86,7 @@ namespace OnlineShop.IdentityServer
 
         public void Configure(IApplicationBuilder app)
         {
-            InitializeDatabase(app);
+            //InitializeDatabase(app);
 
             if (Environment.IsDevelopment())
             {
