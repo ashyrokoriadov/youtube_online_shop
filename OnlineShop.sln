@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31402.337
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.IdentityServer", "src\OnlineShop.IdentityServer\OnlineShop.IdentityServer.csproj", "{868CD5F7-308C-47AE-AB91-282983402BB2}"
 EndProject
@@ -36,6 +36,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.OrdersService.ApiTests", "src\OnlineShop.OrdersService.ApiTests\OnlineShop.OrdersService.ApiTests.csproj", "{BB689D9E-B183-43F7-A830-3AD6FAEE74F8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.ArticlesService.ApiTests", "src\OnlineShop.ArticlesService.ApiTests\OnlineShop.ArticlesService.ApiTests.csproj", "{D4430292-7F7F-4144-A09B-93FF0D10A1D0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.ApiService", "OnlineShop.ApiService\OnlineShop.ApiService.csproj", "{6B879916-B78E-4979-9F4C-3F3B74A416F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +77,10 @@ Global
 		{D4430292-7F7F-4144-A09B-93FF0D10A1D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4430292-7F7F-4144-A09B-93FF0D10A1D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4430292-7F7F-4144-A09B-93FF0D10A1D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B879916-B78E-4979-9F4C-3F3B74A416F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B879916-B78E-4979-9F4C-3F3B74A416F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B879916-B78E-4979-9F4C-3F3B74A416F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B879916-B78E-4979-9F4C-3F3B74A416F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,6 +95,7 @@ Global
 		{0F6F376B-0E89-4B54-AA2E-AD9F7C02BCAF} = {605AA981-BB79-4F02-9AAC-27472468F0FD}
 		{BB689D9E-B183-43F7-A830-3AD6FAEE74F8} = {4832003A-E6BC-45C9-9BAE-5ED7A7398D95}
 		{D4430292-7F7F-4144-A09B-93FF0D10A1D0} = {4832003A-E6BC-45C9-9BAE-5ED7A7398D95}
+		{6B879916-B78E-4979-9F4C-3F3B74A416F7} = {605AA981-BB79-4F02-9AAC-27472468F0FD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D0AE5EBA-8C07-4DBB-A3E2-7D6420A28001}

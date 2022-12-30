@@ -22,7 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OnlineShop.Library\OnlineShop.Library.csproj" />
-    <ProjectReference Include="..\OnlineShop.OrdersService\OnlineShop.OrdersService_.csproj" />
+    <ProjectReference Include="..\OnlineShop.OrdersService\OnlineShop.OrdersService.csproj" />
   </ItemGroup>
 
 </Project>

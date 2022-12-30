@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace OnlineShop.Library.Clients.UserManagementService
 {
-    public abstract class UserManagementBaseClient : IDisposable
+    public abstract class UserManagementBaseClient : IDisposable, IHttpClientContainer
     {
         public UserManagementBaseClient(HttpClient client, IOptions<ServiceAdressOptions> options)
         {
