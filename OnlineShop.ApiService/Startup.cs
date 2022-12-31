@@ -75,7 +75,7 @@ namespace OnlineShop.ApiService
                 options.AddPolicy("ApiScope", policy =>
                 {
                     policy.RequireAuthenticatedUser();
-                    policy.RequireClaim("scope", IdConstants.ApiScope);
+                    policy.RequireClaim("scope", IdConstants.WebScope);
                 });
             });
 
