@@ -45,6 +45,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "rest", "rest", "{741DD7C2-2
 		scripts\rest\identity.http = scripts\rest\identity.http
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShop.ApiService.ApiTests", "src\OnlineShop.ApiService.ApiTests\OnlineShop.ApiService.ApiTests.csproj", "{FFCAF75C-CE63-45D3-95BC-7F7AA98522E6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{6B879916-B78E-4979-9F4C-3F3B74A416F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B879916-B78E-4979-9F4C-3F3B74A416F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B879916-B78E-4979-9F4C-3F3B74A416F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFCAF75C-CE63-45D3-95BC-7F7AA98522E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFCAF75C-CE63-45D3-95BC-7F7AA98522E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFCAF75C-CE63-45D3-95BC-7F7AA98522E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFCAF75C-CE63-45D3-95BC-7F7AA98522E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -103,6 +109,7 @@ Global
 		{D4430292-7F7F-4144-A09B-93FF0D10A1D0} = {4832003A-E6BC-45C9-9BAE-5ED7A7398D95}
 		{6B879916-B78E-4979-9F4C-3F3B74A416F7} = {605AA981-BB79-4F02-9AAC-27472468F0FD}
 		{741DD7C2-2747-4284-8EDD-75EA6A7A9BC9} = {8397BDEA-963C-4C08-B8A6-B515D9DBF283}
+		{FFCAF75C-CE63-45D3-95BC-7F7AA98522E6} = {4832003A-E6BC-45C9-9BAE-5ED7A7398D95}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D0AE5EBA-8C07-4DBB-A3E2-7D6420A28001}
