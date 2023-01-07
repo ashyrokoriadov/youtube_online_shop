@@ -37,7 +37,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.OrdersService.Ap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.ArticlesService.ApiTests", "src\OnlineShop.ArticlesService.ApiTests\OnlineShop.ArticlesService.ApiTests.csproj", "{D4430292-7F7F-4144-A09B-93FF0D10A1D0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.ApiService", "OnlineShop.ApiService\OnlineShop.ApiService.csproj", "{6B879916-B78E-4979-9F4C-3F3B74A416F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.ApiService", "src\OnlineShop.ApiService\OnlineShop.ApiService.csproj", "{6B879916-B78E-4979-9F4C-3F3B74A416F7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "rest", "rest", "{741DD7C2-2747-4284-8EDD-75EA6A7A9BC9}"
 	ProjectSection(SolutionItems) = preProject

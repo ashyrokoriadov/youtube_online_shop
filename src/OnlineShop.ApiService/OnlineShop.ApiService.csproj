@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\OnlineShop.Library\OnlineShop.Library.csproj" />
+    <ProjectReference Include="..\OnlineShop.Library\OnlineShop.Library.csproj" />
   </ItemGroup>
 
 </Project>
