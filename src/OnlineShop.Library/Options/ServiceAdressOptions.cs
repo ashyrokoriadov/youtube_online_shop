@@ -7,5 +7,6 @@
         public string UserManagementService { get; set; }
         public string OrdersService { get; set; }
         public string ArticlesService { get; set; }
+        public string ApiService { get; set; }
     }
 }

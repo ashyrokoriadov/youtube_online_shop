@@ -1,0 +1,11 @@
+﻿POST https://localhost:5001/connect/token HTTP/1.1
+content-type: application/x-www-form-urlencoded
+
+client_id=test.client&client_secret=511536EF-F270-4058-80CA-1C89C192F69A&scope=OnlineShop.Api&grant_type=client_credentials
+
+###
+
+POST https://localhost:5001/connect/token HTTP/1.1
+content-type: application/x-www-form-urlencoded
+
+client_id=external&scope=OnlineShop.Web&grant_type=password&username=andrey&password=Pass_123
