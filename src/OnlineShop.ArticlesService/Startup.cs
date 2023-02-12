@@ -6,12 +6,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using OnlineShop.Library.ArticlesService.Models;
 using OnlineShop.Library.ArticlesService.Repos;
 using OnlineShop.Library.Common.Interfaces;
 using OnlineShop.Library.Constants;
 using OnlineShop.Library.Data;
+using OnlineShop.Library.Options;
 using OnlineShop.Library.UserManagementService.Models;
 
 namespace ArticlesService
@@ -47,13 +49,17 @@ namespace ArticlesService
                .AddEntityFrameworkStores<UsersDbContext>()
                .AddDefaultTokenProviders();
 
+            var serviceAddressOptions = new ServiceAdressOptions();
+            Configuration.GetSection(ServiceAdressOptions.SectionName).Bind(serviceAddressOptions);
+
             services.AddAuthentication(
                 IdentityServerAuthenticationDefaults.AuthenticationScheme)
-                .AddIdentityServerAuthentication(options =>
+                .AddJwtBearer(IdentityServerAuthenticationDefaults.AuthenticationScheme, options =>
                 {
-                    options.Authority = "https://localhost:5001";
-                    options.ApiName = "https://localhost:5001/resources";
+                    options.Authority = serviceAddressOptions.IdentityServer;
+                    //options.ApiName = $"{serviceAddressOptions.IdentityServer}/resources";
                     options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new TokenValidationParameters() { ValidateAudience = false };
                 });
 
             services.AddAuthorization(options =>
