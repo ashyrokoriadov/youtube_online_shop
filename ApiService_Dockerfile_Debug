@@ -1,0 +1,32 @@
+#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+WORKDIR /app
+EXPOSE 80
+EXPOSE 5008
+
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+WORKDIR /src
+
+COPY ["src/OnlineShop.Library/OnlineShop.Library.csproj", "OnlineShop.Library/"]
+RUN dotnet restore "OnlineShop.Library/OnlineShop.Library.csproj"
+
+COPY ["src/OnlineShop.ApiService/OnlineShop.ApiService.csproj", "OnlineShop.ApiService/"]
+RUN dotnet restore "OnlineShop.ApiService/OnlineShop.ApiService.csproj"
+
+COPY . .
+
+WORKDIR "/src/src/OnlineShop.ApiService"
+RUN dotnet build "OnlineShop.ApiService.csproj" -c Debug -o /app/build -r win10-x64 --self-contained
+
+FROM build AS publish
+RUN dotnet publish "OnlineShop.ApiService.csproj" -c Debug -o /app/publish
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+
+ENV ASPNETCORE_URLS=http://+:5008
+ENV ASPNETCORE_ENVIRONMENT=Docker
+
+ENTRYPOINT ["dotnet", "OnlineShop.ApiService.dll"]

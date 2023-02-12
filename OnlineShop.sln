@@ -49,10 +49,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.ApiService.ApiTe
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{F4A70DF5-D28A-4366-9053-F90FF3964A07}"
 	ProjectSection(SolutionItems) = preProject
+		ApiService_Dockerfile_Debug = ApiService_Dockerfile_Debug
 		ArticlesService_Dockerfile_Debug = ArticlesService_Dockerfile_Debug
 		IdentityServer_Dockerfile_Debug = IdentityServer_Dockerfile_Debug
 		OrdersService_Dockerfile_Debug = OrdersService_Dockerfile_Debug
 		UserManagementService_Dockerfile_Debug = UserManagementService_Dockerfile_Debug
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ps", "ps", "{166A9A3E-0891-47AA-9C20-B944C734700D}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\ps\run-api-service-tests.ps1 = scripts\ps\run-api-service-tests.ps1
+		scripts\ps\run-articles-service-tests.ps1 = scripts\ps\run-articles-service-tests.ps1
+		scripts\ps\run-orders-service-tests.ps1 = scripts\ps\run-orders-service-tests.ps1
 	EndProjectSection
 EndProject
 Global
@@ -118,6 +126,7 @@ Global
 		{6B879916-B78E-4979-9F4C-3F3B74A416F7} = {605AA981-BB79-4F02-9AAC-27472468F0FD}
 		{741DD7C2-2747-4284-8EDD-75EA6A7A9BC9} = {8397BDEA-963C-4C08-B8A6-B515D9DBF283}
 		{FFCAF75C-CE63-45D3-95BC-7F7AA98522E6} = {4832003A-E6BC-45C9-9BAE-5ED7A7398D95}
+		{166A9A3E-0891-47AA-9C20-B944C734700D} = {8397BDEA-963C-4C08-B8A6-B515D9DBF283}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D0AE5EBA-8C07-4DBB-A3E2-7D6420A28001}
