@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using IdentityModel.Client;
 using OnlineShop.Library.Clients;
 using OnlineShop.Library.Common.Interfaces;
+using System;
 
 namespace OnlineShop.ArticlesService.ApiTests
 {
@@ -49,7 +50,26 @@ namespace OnlineShop.ArticlesService.ApiTests
         protected virtual void SetServiceAdressOptions()
         {
             var serviceAdressOptionsMock = new Mock<IOptions<ServiceAdressOptions>>();
-            serviceAdressOptionsMock.Setup(m => m.Value).Returns(new ServiceAdressOptions() { ArticlesService = "https://localhost:5007", IdentityServer = "https://localhost:5001" });
+
+            var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            switch (env)
+            {
+                case "Docker":
+                    serviceAdressOptionsMock.Setup(m => m.Value)
+                        .Returns(new ServiceAdressOptions() { 
+                            ArticlesService = "http://localhost:5006", 
+                            IdentityServer = "http://192.168.1.233:5001" 
+                        });
+                    break;
+                default:
+                    serviceAdressOptionsMock.Setup(m => m.Value)
+                        .Returns(new ServiceAdressOptions() { 
+                            ArticlesService = "https://localhost:5007", 
+                            IdentityServer = "https://localhost:5001" 
+                        });
+                    break;
+            }
+            
             ServiceAdressOptions = serviceAdressOptionsMock.Object;
         }
 

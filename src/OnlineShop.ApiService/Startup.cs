@@ -12,15 +12,13 @@ using OnlineShop.Library.Clients.IdentityServer;
 using OnlineShop.Library.Clients.UserManagementService;
 using OnlineShop.Library.Constants;
 using OnlineShop.Library.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 using OnlineShop.Library.Clients.ArticlesService;
 using OnlineShop.Library.Clients;
 using OnlineShop.Library.ArticlesService.Models;
 using OnlineShop.Library.OrdersService.Models;
 using OnlineShop.Library.Clients.OrdersService;
+using Microsoft.IdentityModel.Tokens;
 
 namespace OnlineShop.ApiService
 {
@@ -61,13 +59,17 @@ namespace OnlineShop.ApiService
             services.Configure<IdentityServerApiOptions>(Configuration.GetSection(IdentityServerApiOptions.SectionName));
             services.Configure<ServiceAdressOptions>(Configuration.GetSection(ServiceAdressOptions.SectionName));
 
+            var serviceAddressOptions = new ServiceAdressOptions();
+            Configuration.GetSection(ServiceAdressOptions.SectionName).Bind(serviceAddressOptions);
+
             services.AddAuthentication(
                 IdentityServerAuthenticationDefaults.AuthenticationScheme)
-                .AddIdentityServerAuthentication(options =>
+                .AddJwtBearer(IdentityServerAuthenticationDefaults.AuthenticationScheme, options =>
                 {
-                    options.Authority = "https://localhost:5001";
-                    options.ApiName = "https://localhost:5001/resources";
+                    options.Authority = serviceAddressOptions.IdentityServer;
+                    //options.ApiName = $"{serviceAddressOptions.IdentityServer}/resources";
                     options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new TokenValidationParameters() { ValidateAudience = false };
                 });
 
             services.AddAuthorization(options =>

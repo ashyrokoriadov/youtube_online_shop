@@ -9,10 +9,8 @@ using OnlineShop.Library.Clients.OrdersService;
 using OnlineShop.Library.Options;
 using OnlineShop.Library.OrdersService.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace OnlineShop.OrdersService.ApiTests
@@ -34,7 +32,27 @@ namespace OnlineShop.OrdersService.ApiTests
         public async Task Setup()
         {
             var serviceAdressOptionsMock = new Mock<IOptions<ServiceAdressOptions>>();
-            serviceAdressOptionsMock.Setup(m => m.Value).Returns(new ServiceAdressOptions() { OrdersService = "https://localhost:5005", IdentityServer = "https://localhost:5001" });
+
+            var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            switch (env)
+            {
+                case "Docker":
+                    serviceAdressOptionsMock.Setup(m => m.Value)
+                        .Returns(new ServiceAdressOptions()
+                        {
+                            OrdersService = "http://localhost:5004",
+                            IdentityServer = "http://192.168.1.233:5001"
+                        });
+                    break;
+                default:
+                    serviceAdressOptionsMock.Setup(m => m.Value)
+                        .Returns(new ServiceAdressOptions()
+                        {
+                            OrdersService = "https://localhost:5005",
+                            IdentityServer = "https://localhost:5001"
+                        });
+                    break;
+            }
 
             _ordersClient = new OrdersClient(new HttpClient(), serviceAdressOptionsMock.Object);
             _systemUnderTests = new OrderedArticlesClient(new HttpClient(), serviceAdressOptionsMock.Object);

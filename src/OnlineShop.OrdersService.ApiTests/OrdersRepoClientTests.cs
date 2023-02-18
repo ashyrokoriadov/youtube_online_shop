@@ -31,7 +31,27 @@ namespace OnlineShop.OrdersService.ApiTests
         public async Task Setup()
         {
             var serviceAdressOptionsMock = new Mock<IOptions<ServiceAdressOptions>>();
-            serviceAdressOptionsMock.Setup(m => m.Value).Returns(new ServiceAdressOptions() { OrdersService = "https://localhost:5005", IdentityServer = "https://localhost:5001" });
+
+            var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            switch (env)
+            {
+                case "Docker":
+                    serviceAdressOptionsMock.Setup(m => m.Value)
+                        .Returns(new ServiceAdressOptions()
+                        {
+                            OrdersService = "http://localhost:5004",
+                            IdentityServer = "http://192.168.1.233:5001"
+                        });
+                    break;
+                default:
+                    serviceAdressOptionsMock.Setup(m => m.Value)
+                        .Returns(new ServiceAdressOptions()
+                        {
+                            OrdersService = "https://localhost:5005",
+                            IdentityServer = "https://localhost:5001"
+                        });
+                    break;
+            }
 
             _systemUnderTests = new OrdersClient(new HttpClient(), serviceAdressOptionsMock.Object);
             _identityServerClient = new IdentityServerClient(new HttpClient(), serviceAdressOptionsMock.Object);
