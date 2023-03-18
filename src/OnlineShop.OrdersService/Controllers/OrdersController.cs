@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using OnlineShop.Library.Common.Interfaces;
 using OnlineShop.Library.Common.Repos;
 using OnlineShop.Library.OrdersService.Models;
@@ -12,7 +13,7 @@ namespace OnlineShop.OrdersService.Controllers
 	[Authorize(AuthenticationSchemes = "Bearer")]
     public class OrdersController : RepoControllerBase<Order>
     {
-        public OrdersController(IRepo<Order> ordersRepo) : base(ordersRepo)
+        public OrdersController(IRepo<Order> ordersRepo, ILogger<OrdersController> logger) : base(ordersRepo, logger)
         { }
                
         protected override void UpdateProperties(Order source, Order destination)

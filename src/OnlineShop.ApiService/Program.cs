@@ -1,11 +1,8 @@
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using NLog.Web;
+using OnlineShop.Library.Constants;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace OnlineShop.ApiService
 {
@@ -13,7 +10,15 @@ namespace OnlineShop.ApiService
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            var isDocker = environment == EnvironmentNames.Docker;
+            var logger = NLogBuilder.ConfigureNLog(isDocker ? "nlog.docker.config" : "nlog.config").GetCurrentClassLogger();
+            logger.Debug($"Is docker environment: {isDocker}; environment name: {environment}.");
+
+            CreateHostBuilder(args)
+                .UseNLog()
+                .Build()
+                .Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
