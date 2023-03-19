@@ -1,0 +1,61 @@
+version: "3.7"
+services:
+
+  identity-server:
+    build: 
+        context: .
+        dockerfile: IdentityServer_Dockerfile_Debug
+    image: identity_server
+    ports:
+      - "5001:5001"
+      
+  user-management-service:
+    build: 
+        context: .
+        dockerfile: UserManagementService_Dockerfile_Debug
+    image: user_management_service
+    ports:
+      - "5002:5002"
+    volumes: 
+      - "d:/logs:c:/logs"  
+    depends_on:
+      - identity-server
+      
+  orders-service:
+    build: 
+        context: .
+        dockerfile: OrdersService_Dockerfile_Debug
+    image: orders_service
+    ports:
+      - "5004:5004"
+    volumes: 
+      - "d:/logs:c:/logs"  
+    depends_on:
+      - identity-server
+      
+  articles-service:
+    build: 
+        context: .
+        dockerfile: ArticlesService_Dockerfile_Debug
+    image: articles_service
+    ports:
+      - "5006:5006"
+    volumes: 
+      - "d:/logs:c:/logs"  
+    depends_on:
+      - identity-server
+      
+  api-service:
+    build: 
+        context: .
+        dockerfile: ApiService_Dockerfile_Debug
+    image: api_service
+    ports:
+      - "5008:5008"
+    volumes: 
+      - "d:/logs:c:/logs"  
+    depends_on:
+      - identity-server
+      - user-management-service
+      - orders-service
+      - articles-service

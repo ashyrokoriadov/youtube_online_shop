@@ -51,6 +51,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{F4A70D
 	ProjectSection(SolutionItems) = preProject
 		ApiService_Dockerfile_Debug = ApiService_Dockerfile_Debug
 		ArticlesService_Dockerfile_Debug = ArticlesService_Dockerfile_Debug
+		docker-compose.yml = docker-compose.yml
 		IdentityServer_Dockerfile_Debug = IdentityServer_Dockerfile_Debug
 		OrdersService_Dockerfile_Debug = OrdersService_Dockerfile_Debug
 		UserManagementService_Dockerfile_Debug = UserManagementService_Dockerfile_Debug
