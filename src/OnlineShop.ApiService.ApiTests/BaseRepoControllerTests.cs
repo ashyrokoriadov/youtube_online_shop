@@ -3,14 +3,12 @@ using IdentityModel.Client;
 using Microsoft.Extensions.Options;
 using Moq;
 using NUnit.Framework;
-using OnlineShop.Library.Clients.IdentityServer;
+using OnlineShop.Library.Clients.UserManagementService;
 using OnlineShop.Library.Common.Models;
 using OnlineShop.Library.Options;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace OnlineShop.ApiService.ApiTests
@@ -18,7 +16,7 @@ namespace OnlineShop.ApiService.ApiTests
     public class BaseRepoControllerTests
     {
         protected readonly Fixture Fixture = new Fixture();
-        protected IdentityServerClient IdentityServerClient;
+        protected ILoginClient LoginClient;
         protected HttpClient SystemUnderTests;
 
         public BaseRepoControllerTests()
@@ -40,7 +38,8 @@ namespace OnlineShop.ApiService.ApiTests
                     serviceAdressOptionsMock.Setup(m => m.Value).Returns(new ServiceAdressOptions()
                     {
                         OrdersService = "http://localhost:5004",
-                        IdentityServer = "http://192.168.1.233:5001",
+                        //IdentityServer = "https://localhost:5001",
+                        UserManagementService = "http://localhost:5002",
                         ApiService = "http://localhost:5008"
                     });
                     break;
@@ -49,15 +48,16 @@ namespace OnlineShop.ApiService.ApiTests
                     {
                         OrdersService = "https://localhost:5005",
                         IdentityServer = "https://localhost:5001",
+                        UserManagementService = "https://localhost:5003",
                         ApiService = "https://localhost:5009"
                     });
                     break;
             }
 
             SystemUnderTests = new HttpClient() { BaseAddress = new Uri(serviceAdressOptionsMock.Object.Value.ApiService) };
-            IdentityServerClient = new IdentityServerClient(new HttpClient(), serviceAdressOptionsMock.Object);
+            LoginClient = new LoginClient(new HttpClient(), serviceAdressOptionsMock.Object);
 
-            var token = await IdentityServerClient.GetApiToken(new IdentityServerUserNamePassword()
+            var token = await LoginClient.GetApiTokenByUsernameAndPassword(new IdentityServerUserNamePassword()
             {
                 UserName = "andrey",
                 Password = "Pass_123"

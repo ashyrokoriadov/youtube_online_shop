@@ -68,7 +68,7 @@ namespace OnlineShop.ArticlesService.ApiTests
 
         protected override async Task AuthorizeSystemUnderTests()
         {
-            var token = await IdentityServerClient.GetApiToken(IdentityServerApiOptions);
+            var token = await LoginClient.GetApiTokenByClientSeceret(IdentityServerApiOptions);
             SystemUnderTests.HttpClient.SetBearerToken(token.AccessToken);
             AriclesClient.HttpClient.SetBearerToken(token.AccessToken);
         }
