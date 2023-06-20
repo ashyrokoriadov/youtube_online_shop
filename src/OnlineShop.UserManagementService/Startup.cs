@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using OnlineShop.Library.Clients.IdentityServer;
 using OnlineShop.Library.Constants;
 using OnlineShop.Library.Data;
 using OnlineShop.Library.Options;
@@ -26,6 +27,11 @@ namespace OnlineShop.UserManagementService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpClient<IdentityServerClient>();
+            services.AddTransient<IIdentityServerClient, IdentityServerClient>();
+
+            services.Configure<ServiceAdressOptions>(Configuration.GetSection(ServiceAdressOptions.SectionName));
+
             services.AddDbContext<UsersDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString(ConnectionNames.UsersConnection)));
 

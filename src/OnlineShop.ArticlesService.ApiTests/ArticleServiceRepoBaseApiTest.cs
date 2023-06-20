@@ -11,6 +11,7 @@ using IdentityModel.Client;
 using OnlineShop.Library.Clients;
 using OnlineShop.Library.Common.Interfaces;
 using System;
+using OnlineShop.Library.Clients.UserManagementService;
 
 namespace OnlineShop.ArticlesService.ApiTests
 {
@@ -21,7 +22,7 @@ namespace OnlineShop.ArticlesService.ApiTests
         protected readonly Fixture Fixture = new Fixture();
         protected IOptions<ServiceAdressOptions> ServiceAdressOptions;
         protected IdentityServerApiOptions IdentityServerApiOptions;
-        protected IdentityServerClient IdentityServerClient;
+        protected ILoginClient LoginClient;
         protected TClient SystemUnderTests;
 
         public ArticleServiceRepoBaseApiTest()
@@ -41,7 +42,7 @@ namespace OnlineShop.ArticlesService.ApiTests
             SetServiceAdressOptions();
             SetIdentityServerApiOptions();
 
-            IdentityServerClient = new IdentityServerClient(new HttpClient(), ServiceAdressOptions);
+            LoginClient = new LoginClient(new HttpClient(), ServiceAdressOptions);
 
             CreateSystemUnderTests(); 
             await AuthorizeSystemUnderTests();
@@ -58,14 +59,14 @@ namespace OnlineShop.ArticlesService.ApiTests
                     serviceAdressOptionsMock.Setup(m => m.Value)
                         .Returns(new ServiceAdressOptions() { 
                             ArticlesService = "http://localhost:5006", 
-                            IdentityServer = "http://192.168.1.233:5001" 
+                            UserManagementService = "http://localhost:5002"
                         });
                     break;
                 default:
                     serviceAdressOptionsMock.Setup(m => m.Value)
                         .Returns(new ServiceAdressOptions() { 
                             ArticlesService = "https://localhost:5007", 
-                            IdentityServer = "https://localhost:5001" 
+                            UserManagementService = "https://localhost:5003"
                         });
                     break;
             }
@@ -84,7 +85,7 @@ namespace OnlineShop.ArticlesService.ApiTests
 
         protected virtual async Task AuthorizeSystemUnderTests()
         {
-            var token = await IdentityServerClient.GetApiToken(IdentityServerApiOptions);
+            var token = await LoginClient.GetApiTokenByClientSeceret(IdentityServerApiOptions);
             SystemUnderTests.HttpClient.SetBearerToken(token.AccessToken);
         }
 

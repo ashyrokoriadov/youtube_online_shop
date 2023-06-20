@@ -6,6 +6,7 @@ using NUnit.Framework;
 using OnlineShop.Library.ArticlesService.Models;
 using OnlineShop.Library.Clients.IdentityServer;
 using OnlineShop.Library.Clients.OrdersService;
+using OnlineShop.Library.Clients.UserManagementService;
 using OnlineShop.Library.Options;
 using OnlineShop.Library.OrdersService.Models;
 using System;
@@ -18,7 +19,7 @@ namespace OnlineShop.OrdersService.ApiTests
     public class OrderedArticlesRepoClientTests
     {
         private readonly Fixture _fixture = new Fixture();
-        private IdentityServerClient _identityServerClient;
+        private ILoginClient _loginClient;
         private OrdersClient _ordersClient;
         private OrderedArticlesClient _systemUnderTests;
 
@@ -41,7 +42,7 @@ namespace OnlineShop.OrdersService.ApiTests
                         .Returns(new ServiceAdressOptions()
                         {
                             OrdersService = "http://localhost:5004",
-                            IdentityServer = "http://192.168.1.233:5001"
+                            UserManagementService = "http://localhost:5002"
                         });
                     break;
                 default:
@@ -49,14 +50,14 @@ namespace OnlineShop.OrdersService.ApiTests
                         .Returns(new ServiceAdressOptions()
                         {
                             OrdersService = "https://localhost:5005",
-                            IdentityServer = "https://localhost:5001"
+                            UserManagementService = "https://localhost:5003"
                         });
                     break;
             }
 
             _ordersClient = new OrdersClient(new HttpClient(), serviceAdressOptionsMock.Object);
             _systemUnderTests = new OrderedArticlesClient(new HttpClient(), serviceAdressOptionsMock.Object);
-            _identityServerClient = new IdentityServerClient(new HttpClient(), serviceAdressOptionsMock.Object);
+            _loginClient = new LoginClient(new HttpClient(), serviceAdressOptionsMock.Object);
 
             var identityOptions = new IdentityServerApiOptions()
             {
@@ -64,7 +65,7 @@ namespace OnlineShop.OrdersService.ApiTests
                 ClientSecret = "511536EF-F270-4058-80CA-1C89C192F69A"
             };
 
-            var token = await _identityServerClient.GetApiToken(identityOptions);
+            var token = await _loginClient.GetApiTokenByClientSeceret(identityOptions);
             _systemUnderTests.HttpClient.SetBearerToken(token.AccessToken);
             _ordersClient.HttpClient.SetBearerToken(token.AccessToken);
         }

@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using OnlineShop.Library.Constants;
-using System.Collections.Generic;
+using OnlineShop.Library.Logging;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,50 +16,138 @@ namespace OnlineShop.UserManagementService.Controllers
     public class RolesController : ControllerBase
     {
         private readonly RoleManager<IdentityRole> _roleManager;
-        public RolesController(RoleManager<IdentityRole> roleManager)
+        private readonly ILogger<UsersController> _logger;
+        public RolesController(RoleManager<IdentityRole> roleManager, ILogger<UsersController> logger)
         {
             _roleManager = roleManager;
+            _logger = logger;
         }
 
         [HttpPost(RepoActions.Add)]
-        public Task<IdentityResult> Add(IdentityRole role)
+        public async Task<IActionResult> Add(IdentityRole role)
         {
-            var result = _roleManager.CreateAsync(role);
-            return result;
+            try
+            {
+                var result = await _roleManager.CreateAsync(role);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(new LogEntry()
+                   .WithClass(nameof(RolesController))
+                   .WithMethod(nameof(Add))
+                   .WithComment(ex.ToString())
+                   .WithParameters($"{nameof(role.Name)}: {role.Name}")
+                   .ToString()
+                   );
+
+                return StatusCode(500, LoggingConstants.InternalServerErrorMessage);
+            }
         }
 
         [HttpPost(RepoActions.Update)]
-        public async Task<IdentityResult> Update(IdentityRole role)
+        public async Task<IActionResult> Update(IdentityRole role)
         {
-            var roleToBeUpdated = await _roleManager.FindByIdAsync(role.Id);
-            if (roleToBeUpdated == null)
-                return IdentityResult.Failed(new IdentityError() { Description = $"Role {role.Name} was not found." });
+            try
+            {
+                var roleToBeUpdated = await _roleManager.FindByIdAsync(role.Id);
+                if (roleToBeUpdated == null)
+                {
+                    var description = $"Role {role.Name} was not found.";
 
-            roleToBeUpdated.Name = role.Name;
+                    _logger.LogWarning(new LogEntry()
+                       .WithClass(nameof(RolesController))
+                       .WithMethod(nameof(Update))
+                       .WithComment(description)
+                       .WithParameters($"{nameof(role.Name)}: {role.Name}")
+                       .ToString()
+                       );
 
-            var result = await _roleManager.UpdateAsync(roleToBeUpdated);
-            return result;
+                    return BadRequest(IdentityResult.Failed(new IdentityError() { Description = $"Role {role.Name} was not found." }));
+                }
+
+                roleToBeUpdated.Name = role.Name;
+                var result = await _roleManager.UpdateAsync(roleToBeUpdated);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(new LogEntry()
+                   .WithClass(nameof(RolesController))
+                   .WithMethod(nameof(Get))
+                   .WithComment(ex.ToString())
+                   .WithParameters($"{nameof(role.Name)}: {role.Name}")
+                   .ToString()
+                   );
+
+                return StatusCode(500, LoggingConstants.InternalServerErrorMessage);
+            }
         }
 
         [HttpPost(RepoActions.Remove)]
-        public Task<IdentityResult> Remove(IdentityRole role)
+        public async Task<IActionResult> Remove(IdentityRole role)
         {
-            var result = _roleManager.DeleteAsync(role);
-            return result;
+            try
+            {
+                var result = await _roleManager.DeleteAsync(role);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(new LogEntry()
+                   .WithClass(nameof(RolesController))
+                   .WithMethod(nameof(Get))
+                   .WithComment(ex.ToString())
+                   .WithParameters($"{nameof(role.Name)}: {role.Name}")
+                   .ToString()
+                   );
+
+                return StatusCode(500, LoggingConstants.InternalServerErrorMessage);
+            }
         }
 
         [HttpGet]
-        public Task<IdentityRole> Get(string name)
+        public async Task<IActionResult> Get(string name)
         {
-            var result = _roleManager.FindByNameAsync(name);
-            return result;
+            try
+            {
+                var result = await _roleManager.FindByNameAsync(name);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(new LogEntry()
+                   .WithClass(nameof(RolesController))
+                   .WithMethod(nameof(Get))
+                   .WithComment(ex.ToString())
+                   .WithParameters($"{nameof(name)}: {name}")
+                   .ToString()
+                   );
+
+                return StatusCode(500, LoggingConstants.InternalServerErrorMessage);
+            }
         }
 
         [HttpGet(RepoActions.GetAll)]
-        public IEnumerable<IdentityRole> Get()
+        public IActionResult Get()
         {
-            var result = _roleManager.Roles.AsEnumerable();
-            return result;
+            try
+            {
+                var result = _roleManager.Roles.AsEnumerable();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(new LogEntry()
+                   .WithClass(nameof(RolesController))
+                   .WithMethod(nameof(Get))
+                   .WithComment(ex.ToString())
+                   .WithParameters(LoggingConstants.NoParameters)
+                   .ToString()
+                   );
+
+                return StatusCode(500, LoggingConstants.InternalServerErrorMessage);
+            }
         }
     }
 }

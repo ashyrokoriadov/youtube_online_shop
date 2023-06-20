@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.ApiService.Authorization;
-using OnlineShop.Library.Clients;
 using OnlineShop.Library.Clients.UserManagementService;
 using OnlineShop.Library.Constants;
 using OnlineShop.Library.UserManagementService.Models;

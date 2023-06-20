@@ -3,6 +3,7 @@ using OnlineShop.Library.Common.Interfaces;
 using OnlineShop.Library.ArticlesService.Models;
 using OnlineShop.Library.Common.Repos;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Logging;
 
 namespace OnlineShop.ArticlesService.Controllers
 {
@@ -11,7 +12,7 @@ namespace OnlineShop.ArticlesService.Controllers
     [Authorize(AuthenticationSchemes = "Bearer")]
     public class ArticlesController : RepoControllerBase<Article>
     {
-        public ArticlesController(IRepo<Article> articlesRepo) : base(articlesRepo)
+        public ArticlesController(IRepo<Article> articlesRepo, ILogger<ArticlesController> logger) : base(articlesRepo, logger)
         { }
 
         protected override void UpdateProperties(Article source, Article destination)
