@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using OnlineShop.Library.Constants;
 using OnlineShop.Library.Logging;
@@ -106,11 +107,28 @@ namespace OnlineShop.UserManagementService.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get(string name)
+        public IActionResult Get(string name)
         {
             try
             {
-                var result = await _userManager.FindByNameAsync(name);
+                var result = _userManager.Users
+                    .Include(u => u.DefaultAddress)
+                    .Include(u => u.DeliveryAddress)
+                    .FirstOrDefault(u => u.UserName == name);
+
+                if(result == null)
+                {
+                    _logger.LogWarning(new LogEntry()
+                      .WithClass(nameof(UsersController))
+                      .WithMethod(nameof(Get))
+                      .WithComment($"User with name {name} was not found.")
+                      .WithOperation("Get one")
+                      .WithParameters(name)
+                      .ToString());
+
+                    return NotFound($"User with name {name} was not found.");
+                }
+
                 return Ok(result);
             }
             catch (Exception ex)
@@ -141,9 +159,10 @@ namespace OnlineShop.UserManagementService.Controllers
                    .ToString()
                    );
 
-                //throw new Exception("Ku-ku!");
-
-                var result = _userManager.Users.AsEnumerable();
+                var result = _userManager.Users
+                    .Include(u => u.DefaultAddress)
+                    .Include(u => u.DeliveryAddress)
+                    .AsEnumerable();
 
                 _logger.LogInformation(new LogEntry()
                   .WithClass(nameof(UsersController))

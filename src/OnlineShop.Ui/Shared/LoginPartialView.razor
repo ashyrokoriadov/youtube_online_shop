@@ -1,0 +1,65 @@
+﻿@using OnlineShop.Ui.Components.Abstractions
+@using OnlineShop.Ui.Models.Forms
+@using OnlineShop.Ui.Models.Security
+@using OnlineShop.Ui.States
+@inject HttpClient httpClient
+@inject IJSRuntime JSRuntime
+@inject ILoginStatusManager LoginStatusManager
+
+
+@if (LoginStatusManager.LoginStatus.Token?.IsLoggedIn ?? false)
+{
+   <div style="display:flex; flex-direction: row; justify-content: center; align-items: center;">
+        <span>Hello, @LoginStatusManager.LoginStatus.User.FirstName !</span>
+    </div>
+
+    <div>
+         <button type="button" class="btn btn-primary mx-1" @onclick="LogOut">Logout</button> 
+    </div>
+}
+else
+{
+    <EditForm class="hstack gap-3" Model="LoginForm" OnValidSubmit="SubmitAsync">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <div style="display:flex; flex-direction: row; justify-content: center; align-items: center;">
+            <label class="form-label mx-1" for="name">Login:</label>
+            <InputText id="name" class="form-control mx-1" @bind-Value="LoginForm.UserName"></InputText>
+            <ValidationMessage class="form-control mx-1" For="()=>LoginForm.UserName"></ValidationMessage>
+        </div>
+
+        <div style="display:flex; flex-direction: row; justify-content: center; align-items: center;">
+            <label class="form-label mx-1" for="password">Password:</label>
+            <InputText id="password" type="password" class="form-control mx-1" @bind-Value="LoginForm.Password"></InputText>
+            <ValidationMessage class="form-control mx-1" For="()=>LoginForm.Password"></ValidationMessage>
+        </div>
+
+        <div>
+             <button type="submit" class="btn btn-primary mx-1">Submit</button> 
+             <button type="reset" class="btn btn-primary mx-1">Clear</button>
+        </div>
+    </EditForm>
+}
+
+@code {
+    public LoginForm LoginForm { get; set; } = new();
+
+    private async Task SubmitAsync()
+    {
+        var loginStatusChanged = await LoginStatusManager.LogIn(LoginForm.UserName, LoginForm.Password);
+        
+        if(loginStatusChanged)
+        {
+            StateHasChanged();
+        }
+    }
+
+    private async Task LogOut()
+    {       
+        var loginStatusChanged = await LoginStatusManager.LogOut();
+
+        if(loginStatusChanged)
+        {
+            StateHasChanged();
+        }
+    }
+}

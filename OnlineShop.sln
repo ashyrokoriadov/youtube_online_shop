@@ -64,6 +64,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ps", "ps", "{166A9A3E-0891-
 		scripts\ps\run-orders-service-tests.ps1 = scripts\ps\run-orders-service-tests.ps1
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ui", "ui", "{8DD24F1C-15EE-4525-99F8-0654E8EDB66C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.Ui", "src\OnlineShop.Ui\OnlineShop.Ui.csproj", "{07112DE8-7E57-420A-B66F-E6BBC0B8C92D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -110,6 +114,10 @@ Global
 		{FFCAF75C-CE63-45D3-95BC-7F7AA98522E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFCAF75C-CE63-45D3-95BC-7F7AA98522E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFCAF75C-CE63-45D3-95BC-7F7AA98522E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07112DE8-7E57-420A-B66F-E6BBC0B8C92D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07112DE8-7E57-420A-B66F-E6BBC0B8C92D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07112DE8-7E57-420A-B66F-E6BBC0B8C92D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07112DE8-7E57-420A-B66F-E6BBC0B8C92D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -128,6 +136,7 @@ Global
 		{741DD7C2-2747-4284-8EDD-75EA6A7A9BC9} = {8397BDEA-963C-4C08-B8A6-B515D9DBF283}
 		{FFCAF75C-CE63-45D3-95BC-7F7AA98522E6} = {4832003A-E6BC-45C9-9BAE-5ED7A7398D95}
 		{166A9A3E-0891-47AA-9C20-B944C734700D} = {8397BDEA-963C-4C08-B8A6-B515D9DBF283}
+		{07112DE8-7E57-420A-B66F-E6BBC0B8C92D} = {8DD24F1C-15EE-4525-99F8-0654E8EDB66C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D0AE5EBA-8C07-4DBB-A3E2-7D6420A28001}

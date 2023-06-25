@@ -1,0 +1,54 @@
+﻿@page "/orders-list"
+@using System.Linq
+@using OnlineShop.Ui.Models.Orders
+@using OnlineShop.Ui.Components.Abstractions
+@inject IOrdersManager ordersManager
+@inject ILoginStatusManager LoginStatusManager
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center align-items-center">
+            <h4>Here you can find your orders.</h4>
+        </div>  
+    </div>
+    <div class="row">
+        <div class="col-12">
+            &nbsp;
+        </div>    
+    </div>       
+    <div class="row">
+        <div class="col-2 d-flex justify-content-start align-items-center p-1">
+            <span>Id</span>
+        </div>
+        <div class="col-2 d-flex justify-content-start align-items-center p-1">
+            <span>Name</span>
+        </div>
+        <div class="col-2 d-flex justify-content-center align-items-center p-1">
+            <span>Address</span>
+        </div>
+        <div class="col-1 d-flex justify-content-center align-items-center p-1">
+            <span>Created</span>
+        </div>
+        <div class="col-1 d-flex justify-content-center align-items-center p-1">
+            <span>Modified</span>
+        </div> 
+        <div class="col-4 d-flex justify-content-center align-items-center p-1">
+            <span>Articles</span>
+        </div> 
+    </div>
+
+    @foreach (var order in Orders)
+    {
+        <OrderDisplay Order="order"/>
+    }
+
+</div>
+
+@code {
+    public List<OrderView> Orders { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Orders = (await ordersManager.GetAllOrders()).ToList();
+    }
+}
