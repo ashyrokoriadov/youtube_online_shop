@@ -1,0 +1,40 @@
+﻿@using OnlineShop.Ui.Models.Orders
+
+<div class="row" id="@Order.Id">
+    <div class="col-2 d-flex justify-content-start align-items-center p-1">
+      <span>@Order.Id</span>
+    </div>
+
+    <div class="col-2 d-flex justify-content-start align-items-center p-1">
+      <span>@Order.User.FirstName  @Order.User.LastName</span>
+    </div>
+
+    <div class="col-2 d-flex justify-content-start align-items-center p-1">
+      <span>@Order.Address.AddressLine1 @Order.Address.AddressLine2 <br/>
+          @Order.Address.PostalCode @Order.Address.City <br/>
+          @Order.Address.Country</span>
+    </div>
+
+	<div class="col-1 d-flex justify-content-center align-items-center p-1">
+      <span>@Order.Created</span>
+    </div>
+
+    <div class="col-1 d-flex justify-content-center align-items-center p-1">
+      <span>@Order.Modified</span>
+    </div>
+
+     <div class="col-4 d-flex justify-content-center align-items-center p-1">
+        @foreach(var article in @Order.Articles)
+        {
+            <OrderedArticlesDisplay Article="article"/>
+        }
+     </div>
+
+</div>
+
+@code {
+
+    [EditorRequired]
+    [Parameter]
+    public OrderView Order { get; set; } = new();
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "5C50938D-577C-4C12-B8CB-D2BF22842E5A",
+    "name": "Blazor Server .NET 6 Fundamentals",
+    "description": "A beginner's book of Blazor Server website development in .NET 6.",
+    "price": 23.99
+  },
+  {
+    "id": "4C18E6CE-BA0A-46D2-88AA-A6C48F0ACB0C",
+    "name": "Blazor WebAssembly .NET 6 Fundamentals",
+    "description": "A beginner's book of Blazor WebAssembly website development in .NET 6.",
+    "price": 23.99
+  },
+  {
+    "id": "C468DAAE-5190-423E-8ACA-500D21F0F65D",
+    "name": "Blazor Server .NET 6 Advanced",
+    "description": "A good book of Blazor Server website development in .NET 6.",
+    "price": 39.99
+  },
+  {
+    "id": "EDCEF58E-EF65-4F53-9D1A-CF33AC6F6371",
+    "name": "Blazor WebAssembly .NET 6 Advanced",
+    "description": "A good book of Blazor WebAssembly website development in .NET 6.",
+    "price": 39.99
+  }
+]

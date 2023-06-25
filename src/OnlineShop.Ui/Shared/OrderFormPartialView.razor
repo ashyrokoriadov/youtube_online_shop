@@ -1,0 +1,66 @@
+﻿@using OnlineShop.Ui.Models.Articles
+@using OnlineShop.Ui.Models.Common
+@using OnlineShop.Ui.Components.Abstractions
+@inject ILoginStatusManager LoginStatusManager
+@inject IOrdersManager OrdersManager
+
+<EditForm class="vstack gap-3" Model="Address" OnValidSubmit="SubmitAsync">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+
+    <div>
+        <label class="form-label" for="country">Country:</label>
+        <InputText id="country" disabled="true"  class="form-control" @bind-Value="Address.Country"></InputText>
+        <ValidationMessage class="form-control" For="()=>Address.Country"></ValidationMessage>
+    </div>
+
+    <div>
+        <label class="form-label" for="city">City:</label>
+        <InputText id="city" disabled="true" class="form-control" @bind-Value="Address.City"></InputText>
+        <ValidationMessage class="form-control" For="()=>Address.City"></ValidationMessage>
+    </div>
+
+    <div>
+        <label class="form-label" for="postal-code">Postal code:</label>
+        <InputText id="postal-code" disabled="true" class="form-control" @bind-Value="Address.PostalCode"></InputText>
+        <ValidationMessage class="form-control" For="()=>Address.PostalCode"></ValidationMessage>
+    </div>
+
+       <div>
+        <label class="form-label" for="postal-code">Address line 1:</label>
+        <InputText id="postal-code" disabled="true" class="form-control" @bind-Value="Address.AddressLine1"></InputText>
+        <ValidationMessage class="form-control" For="()=>Address.AddressLine1"></ValidationMessage>
+    </div>
+
+       <div>
+        <label class="form-label" for="postal-code">Address line 2:</label>
+        <InputText id="postal-code" disabled="true" class="form-control" @bind-Value="Address.AddressLine2"></InputText>
+        <ValidationMessage class="form-control" For="()=>Address.AddressLine2"></ValidationMessage>
+    </div>
+    
+     @if (LoginStatusManager.LoginStatus.Token?.IsLoggedIn ?? false)
+        {
+            <div>
+                <button type="submit" class="btn btn-primary mx-1">Submit</button> 
+            </div>
+        }
+</EditForm>
+
+@code {
+    [EditorRequired]
+    [Parameter]
+    public Address Address { get; set; } = new();
+
+    [EditorRequired]
+    [Parameter]
+    public Dictionary<Article, int> CartItems{ get; set; } = new();
+
+    protected override void OnInitialized()
+    {
+        LoginStatusManager.LoginStatusHasChanged += (o, e) => StateHasChanged();
+    }
+
+    private async Task SubmitAsync()
+    {
+        await OrdersManager.SubmitOrder(Address.Id, CartItems);      
+    }
+}

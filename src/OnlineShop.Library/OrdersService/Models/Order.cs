@@ -1,6 +1,5 @@
 ﻿using OnlineShop.Library.ArticlesService.Models;
 using OnlineShop.Library.Common.Interfaces;
-using OnlineShop.Library.Common.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

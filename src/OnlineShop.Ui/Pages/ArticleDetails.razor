@@ -1,0 +1,91 @@
+﻿@page "/articles/{ArticleId:guid}"
+@using OnlineShop.Ui.Models.Articles
+@using OnlineShop.Ui.Components.Abstractions
+@inject HttpClient httpClient
+@inject ILoginStatusManager LoginStatusManager
+@inject States.CartState CartState
+@inject IJSRuntime JSRuntime
+
+<div class="container mt-2">
+	    <div class="row">
+            <div class="col-12 d-flex justify-content-center align-items-center">
+              <h3>@Article.Name details</h3>
+            </div>  
+        </div>
+
+		<div class="row headers">
+           <div class="col-2 d-flex justify-content-start align-items-center p-1">
+              <span>Name</span>
+            </div>
+            <div class="col-3 d-flex justify-content-start align-items-center p-1">
+              <span>Description</span>
+            </div>
+	        <div class="col-2 d-flex justify-content-center align-items-center p-1">
+              <span>Price</span>
+            </div>   
+            <div class="col-2 d-flex justify-content-center align-items-center p-1">
+              <span>Order quantity</span>
+            </div>
+            <div class="col-3 d-flex justify-content-center align-items-center p-1">
+              <span>Actions</span>
+            </div>
+        </div>
+
+        <div class="row" id="@Article.Id">
+            <div class="col-2 d-flex justify-content-start align-items-center p-1">
+              <span>@Article.Name</span>
+            </div>
+            <div class="col-3 d-flex justify-content-start align-items-center p-1">
+              <span>@Article.Description</span>
+            </div>
+	        <div class="col-2 d-flex justify-content-center align-items-center p-1">
+              <span>@Article.Price.ToString("0.00") EUR</span>
+            </div>
+            <div class="col-2 d-flex justify-content-center align-items-center p-1">    
+                <input class="input form-control mx-1" type="number" name="quantity" @bind="Quantity"/>
+            </div>
+            <div class="col-3 d-flex justify-content-center align-items-center p-1">  
+        
+
+                @if (LoginStatusManager.LoginStatus.Token?.IsLoggedIn ?? false)
+                {
+                    <button class="btn btn-primary" type="button" @onclick="_ => CartState.AddArticleToCartAsync(Article.Id, Quantity)">Buy</button>
+                }
+
+	        </div>
+        </div>
+</div>
+
+@code {
+
+	[Parameter]
+	[EditorRequired]
+	public Guid ArticleId { get; set; }
+
+	public Article Article { get; set; } = new();
+
+    public int Quantity { get; set; } = 0;
+
+	protected override async Task OnInitializedAsync()
+	{
+		try
+		{
+            LoginStatusManager.LoginStatusHasChanged += HandleLoginStatusChanged;
+
+			Article = await httpClient.GetFromJsonAsync<Article>($"Articles?id={ArticleId}") ?? new();
+			var priceLists = await httpClient.GetFromJsonAsync<List<PriceList>>("PriceLists/all") ?? new();
+
+			var price = priceLists.FirstOrDefault(price => price.ArticleId == ArticleId)?.Price ?? 0M;
+			Article.Price = price;
+		}
+		catch(Exception ex)
+		{
+			Console.WriteLine(ex.Message);
+		}
+	}
+
+    private void HandleLoginStatusChanged(object? o, EventArgs e)
+    {
+        StateHasChanged();
+    }
+}

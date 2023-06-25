@@ -1,0 +1,37 @@
+﻿@using OnlineShop.Ui.Components.Abstractions
+@using OnlineShop.Ui.Models.Articles 
+@inject NavigationManager NavigationManager
+@inject ILoginStatusManager LoginStatusManager
+@inject States.CartState CartState
+
+<div class="row" id="@Article.Id">
+    <div class="col-2 d-flex justify-content-start align-items-center p-1">
+      <span>@Article.Name</span>
+    </div>
+    <div class="col-3 d-flex justify-content-start align-items-center p-1">
+      <span>@Article.Description</span>
+    </div>
+	<div class="col-2 d-flex justify-content-center align-items-center p-1">
+      <span>@Article.Price.ToString("0.00") EUR</span>
+    </div>
+
+    <div class="col-2 d-flex justify-content-center align-items-center p-1">    
+        <span>@Quantity</span>
+    </div>
+
+	<div class="col-3 d-flex justify-content-center align-items-center p-1">  
+        <span>@Total.ToString("0.00") EUR</span>
+	</div>
+</div>
+
+@code {
+    [EditorRequired]
+    [Parameter]
+    public Article Article { get; set; } = new();
+
+    [EditorRequired]
+    [Parameter]
+    public int Quantity { get; set; } = 0;
+
+    public decimal Total => Article.Price * Quantity;
+}
