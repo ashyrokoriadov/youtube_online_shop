@@ -1,0 +1,60 @@
+﻿@page "/checkout"
+@using OnlineShop.Ui.Models.Common
+@using OnlineShop.Ui.Models.Forms
+@using OnlineShop.Ui.States
+@inject CartState CartState
+@using OnlineShop.Ui.Components.Abstractions
+@inject ILoginStatusManager LoginStatusManager
+@inject IOrdersManager OrdersManager
+
+<span>You have @CartState.Items.Count item(s) in your cart.</span>
+<br/>
+<br/>
+<div class="container mt-2">
+	    <div class="row">
+            <div class="col-12 d-flex justify-content-center align-items-center">
+              <h3>Cart details</h3>
+            </div>  
+        </div>
+        <div class="row headers">
+            <div class="col-2 d-flex justify-content-start align-items-center p-1">
+              <span>Name</span>
+            </div>
+            <div class="col-3 d-flex justify-content-start align-items-center p-1">
+              <span>Description</span>
+            </div>
+	        <div class="col-2 d-flex justify-content-center align-items-center p-1">
+              <span>Price EUR</span>
+            </div>
+
+            <div class="col-2 d-flex justify-content-center align-items-center p-1">    
+                <span>Quantity</span>
+            </div>
+
+	        <div class="col-3 d-flex justify-content-center align-items-center p-1">  
+                <span>Total</span>
+	        </div>
+        </div>
+
+@foreach (var item in CartState.Items)
+{
+    <ArticleInCartPartialView Article="item.Key" Quantity="item.Value" />
+}
+</div>
+<br/>
+<span>Total order amount is @CartState.Items.Sum(i => i.Key.Price * i.Value).ToString("0.00") EUR.</span>
+<br/>
+<br/>
+<h4>Delivery address</h4>
+<OrderFormPartialView Address="Address" CartItems="CartState.Items" />
+
+@code {
+
+    public Address Address { get; set; } = new();
+
+    protected override void OnInitialized()
+    {
+         Address = LoginStatusManager.LoginStatus.User.DeliveryAddress;
+         OrdersManager.CartStatusHasChanged += (o, e) => StateHasChanged();
+    }
+}

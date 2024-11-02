@@ -47,6 +47,7 @@ namespace OnlineShop.ApiService
             services.AddHttpClient<OrderedArticle>();
             services.AddHttpClient<Order>();
 
+            services.AddTransient<ILoginClient, LoginClient>();
             services.AddTransient<IRolesClient, RolesClient>();
             services.AddTransient<IUsersClient, UsersClient>();
             services.AddTransient<IIdentityServerClient, IdentityServerClient>();
@@ -81,6 +82,15 @@ namespace OnlineShop.ApiService
                 });
             });
 
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(policyBuilder =>
+                {
+                    policyBuilder.WithOrigins("https://localhost:7163").AllowAnyHeader().AllowAnyMethod();
+                    policyBuilder.WithOrigins("http://localhost:5163").AllowAnyHeader().AllowAnyMethod();
+                });
+            });
+
             services.AddControllers();
 
         }
@@ -102,7 +112,7 @@ namespace OnlineShop.ApiService
 
             app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseCors();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers().RequireAuthorization("ApiScope");

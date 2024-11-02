@@ -1,0 +1,49 @@
+﻿@using OnlineShop.Ui.Components.Abstractions
+@using OnlineShop.Ui.Models.Articles 
+@inject NavigationManager NavigationManager
+@inject ILoginStatusManager LoginStatusManager
+@inject States.CartState CartState
+
+<div class="row" id="@Article.Id">
+    <div class="col-2 d-flex justify-content-start align-items-center p-1">
+      <span>@Article.Name</span>
+    </div>
+    <div class="col-3 d-flex justify-content-start align-items-center p-1">
+      <span>@Article.Description</span>
+    </div>
+	<div class="col-2 d-flex justify-content-center align-items-center p-1">
+      <span>@Article.Price.ToString("0.00") EUR</span>
+    </div>
+
+    <div class="col-2 d-flex justify-content-center align-items-center p-1">    
+        <input class="input form-control mx-1" type="number" name="quantity" @bind="Quantity"/>
+    </div>
+
+	<div class="col-3 d-flex justify-content-center align-items-center p-1">  
+        <button type="button" class="btn btn-primary details" @onclick="Navigate">Details</button> &nbsp; &nbsp;
+
+        @if (LoginStatusManager.LoginStatus.Token?.IsLoggedIn ?? false)
+        {
+            <button class="btn btn-primary buy" type="button" @onclick="_ => CartState.AddArticleToCartAsync(Article.Id, Quantity)">Buy</button>
+        }
+
+	</div>
+  </div>
+
+@code {
+    [EditorRequired]
+    [Parameter]
+    public Article Article { get; set; } = new();
+
+    public int Quantity { get; set; } = 0;
+
+    protected override void OnInitialized()
+    {
+        LoginStatusManager.LoginStatusHasChanged += (o, e) => StateHasChanged();
+    }
+
+    public void Navigate()
+    {
+        NavigationManager.NavigateTo($"/articles/{Article.Id}");
+    }
+}
